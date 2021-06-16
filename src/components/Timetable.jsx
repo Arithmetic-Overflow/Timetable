@@ -1,7 +1,6 @@
 import React from 'react';
-
-import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import Timeslot from './Timeslot'
 
 const formatTime   = time => time > 9 ? time : '0' + time;
 
@@ -19,19 +18,25 @@ const dayMap = [
   'Friday'
 ];
 
-const generateTimeRow = (time, numCols) => {
+const gents = (t, d, av) => {
+  const a = [av[dayMap[d]][t]];
+  console.log(a)
+  return <Timeslot allocation={a} />;
+}
+
+const generateTimeRow = (time, numCols, allocations) => {
   return (
     <tr>
       <th>
         { time }
       </th>
 
-      { Array(numCols).fill(0).map(_ => <td> </td>) }
+      { Array(numCols).fill(0).map((_, day) => gents(time, day, allocations)) }
     </tr>
   );
 }
 
-const generateTimeRanges = (startTime, endTime, timeFormat) => {
+const generateTimeRanges = (startTime, endTime, allocations, timeFormat) => {
   const numDays = dayMap.length;
   const timeRange = endTime - startTime;
 
@@ -39,26 +44,33 @@ const generateTimeRanges = (startTime, endTime, timeFormat) => {
 
   return (
     <tbody>
-      { times.map(time => generateTimeRow(time, numDays)) }
+      { times.map(time => generateTimeRow(time, numDays, allocations)) }
     </tbody>
   );
 }
 
-const buildTable = (startTime, endTime, timeFormat) => {
-  const heading = <thead> <th> Time </th> { dayMap.map(day => <th> { day } </th>) } </thead>
-  const tableBody = generateTimeRanges(8, 20, timeFormat);
-  const table = <Table hover borderless variant="dark"> { heading } { tableBody } </Table>;
+const buildTable = (className, allocations, startTime, endTime, timeFormat) => {
+  const heading = 
+    <thead>
+      <tr>
+        <th>Time</th>
+        { dayMap.map(day => <th>{ day }</th>) }
+      </tr>
+    </thead>;
+
+  const tableBody = generateTimeRanges(8, 20, allocations, timeFormat);
+  const table = <Table className={ className } hover borderless variant="dark">{ heading }{ tableBody }</Table>;
 
   return (
     table
   );
 }
 
-const Timetable = ({ className, timeStandard='12' }) => {
-  const timeFormat = timeStandard == '12' ? format12Hour : format24Hour;
-
+const Timetable = ({ className, timeStandard='12', allocations={'Monday': {'14':2}, 'Tuesday': {'17':3}, 'Wednesday': {}, 'Thursday': {}, 'Friday': {}} }) => {
+  const timeFormat = timeStandard === '12' ? format12Hour : format24Hour;
+  console.log(allocations)
   return (
-    buildTable(8, 20, timeFormat)
+    buildTable(className, allocations, 8, 20, timeFormat)
   );
 };
 

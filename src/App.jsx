@@ -3,7 +3,7 @@ import Timetable from './components/Timetable'
 
 function App() {
   return (
-    <div className="Ap
+    <div className="App">
       <header className="App-header">
       <Timetable timeStandard='24' />
       </header>
