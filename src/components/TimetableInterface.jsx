@@ -1,10 +1,13 @@
 import React from 'react';
 import Timetable from './Timetable'
-
+import Legend from './Legend'
 
 const TimetableInterface = ({ className }) => {
     return (
-        <Timetable timeStandard='24' />
+    	<div>
+	    	<Legend />
+	        <Timetable timeStandard='24' />
+        </div>
     );
 };
 
