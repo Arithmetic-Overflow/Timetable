@@ -21,13 +21,13 @@ const dayMap = [
 const gents = (t, timeFormat, d, av) => {
   const dayStr = dayMap[d];
   const a = [av[dayStr][t]];
-  return <Timeslot day={ dayStr } time={ t } allocation={ a } allocations={ av } />;
+  return <Timeslot key={ dayStr + t } day={ dayStr } time={ t } allocation={ a } allocations={ av } />;
 }
 
 const generateTimeRow = (time, timeFormat, numCols, allocations) => {
   return (
-    <tr>
-      <th>
+    <tr key={ 'timerow' + time }>
+      <th key={ 'time' + time }>
         { timeFormat(time) }
       </th>
 
@@ -52,9 +52,9 @@ const generateTimeRanges = (startTime, endTime, allocations, timeFormat) => {
 const buildTable = (className, allocations, startTime, endTime, timeFormat) => {
   const heading = 
     <thead>
-      <tr>
-        <th>Time</th>
-        { dayMap.map(day => <th style={{'overflow': 'hidden'}} >{ day }</th>) }
+      <tr key={ 'tableheading' }>
+        <th key={ 'time' }>Time</th>
+        { dayMap.map(day => <th key={ 'dayheading' + day } style={{'overflow': 'hidden'}} >{ day }</th>) }
       </tr>
     </thead>;
 
