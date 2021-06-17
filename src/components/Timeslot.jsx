@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import styles from './timeslot.module.css';
 
 const availableColours = [
+    'none',
     'red',
     'aqua',
     'lime',
@@ -11,6 +12,7 @@ const availableColours = [
 ];
 
 const colourNameMap = {
+    'none'      : '',
     'red'       :'#ee2200',
     'aqua'      :'#22eeee',
     'lime'      :'#66dd00',
@@ -19,13 +21,22 @@ const colourNameMap = {
     'purple'    :'#ee22ee',
 };
 
-const Timeslot = ({ className, allocation=[] }) => {
-    const colour = allocation.length > 0 ?
-        colourNameMap[availableColours[allocation[0]]] :
+const Timeslot = ({ className, day, time, allocation=[], allocations }) => {
+    const [alloc, setAlloc] = useState(allocation);
+
+    const colour = alloc.length > 0 ?
+        colourNameMap[availableColours[alloc[0]]] :
         '';
 
+    const onClick = () => {
+        const curr = allocations[day][time] !== undefined ? allocations[day][time] : 0;
+
+        allocations[day][time] = (curr + 1) % availableColours.length;
+        setAlloc([allocations[day][time]]);
+    }
+
     return (
-        <td style={{'backgroundColor': colour}}>
+        <td style={{'backgroundColor': colour}} onClick={ onClick }>
         </td>
     );
 };

@@ -18,20 +18,20 @@ const dayMap = [
   'Friday'
 ];
 
-const gents = (t, d, av) => {
-  const a = [av[dayMap[d]][t]];
-  console.log(a)
-  return <Timeslot allocation={a} />;
+const gents = (t, timeFormat, d, av) => {
+  const dayStr = dayMap[d];
+  const a = [av[dayStr][t]];
+  return <Timeslot day={ dayStr } time={ t } allocation={ a } allocations={ av } />;
 }
 
-const generateTimeRow = (time, numCols, allocations) => {
+const generateTimeRow = (time, timeFormat, numCols, allocations) => {
   return (
     <tr>
       <th>
-        { time }
+        { timeFormat(time) }
       </th>
 
-      { Array(numCols).fill(0).map((_, day) => gents(time, day, allocations)) }
+      { Array(numCols).fill(0).map((_, day) => gents(time, timeFormat, day, allocations)) }
     </tr>
   );
 }
@@ -40,11 +40,11 @@ const generateTimeRanges = (startTime, endTime, allocations, timeFormat) => {
   const numDays = dayMap.length;
   const timeRange = endTime - startTime;
 
-  const times = Array(timeRange).fill(0).map((_, time) => timeFormat(time + startTime));
+  const times = Array(timeRange).fill(0).map((_, time) => time + startTime);
 
   return (
     <tbody>
-      { times.map(time => generateTimeRow(time, numDays, allocations)) }
+      { times.map(time => generateTimeRow(time, timeFormat, numDays, allocations)) }
     </tbody>
   );
 }
@@ -54,21 +54,35 @@ const buildTable = (className, allocations, startTime, endTime, timeFormat) => {
     <thead>
       <tr>
         <th>Time</th>
-        { dayMap.map(day => <th>{ day }</th>) }
+        { dayMap.map(day => <th style={{'overflow': 'hidden'}} >{ day }</th>) }
       </tr>
     </thead>;
 
   const tableBody = generateTimeRanges(8, 20, allocations, timeFormat);
-  const table = <Table className={ className } hover borderless variant="dark">{ heading }{ tableBody }</Table>;
+  const table =
+    <Table
+    className={ className }
+    bordered
+    variant="dark"
+    style={{'tableLayout': 'fixed'}}
+    >
+      { heading }{ tableBody }
+    </Table>;
 
   return (
     table
   );
 }
 
-const Timetable = ({ className, timeStandard='12', allocations={'Monday': {'14':2}, 'Tuesday': {'17':3}, 'Wednesday': {}, 'Thursday': {}, 'Friday': {}} }) => {
+const Timetable = ({ className, timeStandard='12', allocations }) => {
+  if(allocations === undefined) {
+    const allocMap = {};
+    dayMap.map(day => allocMap[day] = {});
+    allocations = allocMap;
+  }
+
   const timeFormat = timeStandard === '12' ? format12Hour : format24Hour;
-  console.log(allocations)
+
   return (
     buildTable(className, allocations, 8, 20, timeFormat)
   );
