@@ -1,25 +1,7 @@
 import React, { useState } from 'react';
 // import styles from './timeslot.module.css';
 
-const availableColours = [
-    'none',
-    'red',
-    'aqua',
-    'lime',
-    'pink',
-    'yellow',
-    'purple'
-];
-
-const colourNameMap = {
-    'none'      : '',
-    'red'       :'#ee2200',
-    'aqua'      :'#22eeee',
-    'lime'      :'#66dd00',
-    'pink'      :'#ff77ff',
-    'yellow'    :'#dddd22',
-    'purple'    :'#ee22ee',
-};
+import { availableColours, colourNameMap } from './colours';
 
 const Timeslot = ({ className, day, time, allocation=[], allocations }) => {
     const [alloc, setAlloc] = useState(allocation);

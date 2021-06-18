@@ -1,22 +1,44 @@
 import React, { useState } from 'react';
 import 'react-dom';
+
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
-const Legend = ({ className, unitColourMap={} }) => {
-  const [units, setUnits]     = useState(Object.keys(unitColourMap));
-  const [colours, setColours] = useState(Object.values(unitColourMap));
+import { availableColours, colourNameMap } from './colours';
 
-  const defaultInputText = "";
-  const [inputText, setInputText] = useState('');
+const Legend = ({ className, unitColourMap=[] }) => {
+  const getColours = (n) => {
+    return(
+      Array(n)
+        .fill(0)
+        .map(
+          (_, i) => colourNameMap[availableColours[i+1]]
+        )
+      );
+  }
+  const [units, setUnits]     = useState(unitColourMap);
+  const [colours, setColours] = useState(getColours(units.length));
 
   const [unitInput, setUnitInput] = useState('');
 
-  const addUnit = () => {
-    setUnits([...units, unitInput]);
-    setColours([...colours, '#ff0000']);
+  const updateColours = () => {
+    setColours(
+      getColours()
+    );
+  }
 
-    setInputText('');
+  const addUnit = () => {
+    if(units.length + 1 < availableColours.length) {
+      setColours(getColours(units.length + 1))
+      setUnits([...units, unitInput]);
+
+      setUnitInput('');
+    }
+    // setColours([...colours, '#ff0000']);
+  }
+
+  const deleteRow = (index) => {
+    return units;
   }
 
 
@@ -26,7 +48,8 @@ const Legend = ({ className, unitColourMap={} }) => {
       <thead>
         <tr key={ 'legendHeading' }>
           <th key={ 'colourHeading' }>Colour</th>
-          <th key={ 'unitcodeHeading' }>Key</th>    
+          <th key={ 'unitcodeHeading' }>Key</th>
+          <th key={ 'unitDeleteHeading' }>Delete</th>    
         </tr>
       </thead>
 
@@ -36,6 +59,7 @@ const Legend = ({ className, unitColourMap={} }) => {
             <tr key={ 'legend' + units[i] }>
               <td key={ 'keyColour' + units[i] }style={{'backgroundColor': colours[i]}}></td>
               <td key={ 'keyUnit'   + units[i] }>{ units[i] }</td>
+              <td key={ 'delete' + units[i] }> <Button onClick={ () => deleteRow(i) } > ! </Button> </td>
             </tr>
           )
         }
@@ -44,10 +68,15 @@ const Legend = ({ className, unitColourMap={} }) => {
             <td>
               <input 
                 type="text"
-                onChange={event => {setUnitInput(event.target.value)}}
+                onChange={
+                  event =>
+                    (event.target.value.match(/^[0-9A-Z]+$/) || event.target.value === '') &&
+                      setUnitInput(event.target.value)
+                }
                 value={ unitInput }
                 placeholder={ 'Add a unit' }
                 style={{'textAlign': 'center'}}
+                onKeyDown={ event => (event.keyCode == 13) && addUnit()}
               >
 
               </input>
