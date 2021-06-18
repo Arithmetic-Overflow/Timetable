@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
+import 'react-dom';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
-const Legend = ({ className, unitColours={} }) => {
-  const [unitMap, setUnitMap] = useState(unitColours);
-  const units   = Object.keys(unitMap);
-  const colours = Object.values(unitMap);
+const Legend = ({ className, unitColourMap={} }) => {
+  const [units, setUnits]     = useState(Object.keys(unitColourMap));
+  const [colours, setColours] = useState(Object.values(unitColourMap));
 
-  console.log(units)
-  units.map(_ => console.log('!'));
+  const defaultInputText = "";
+  const [inputText, setInputText] = useState('');
+
+  const [unitInput, setUnitInput] = useState('');
+
+  const addUnit = () => {
+    setUnits([...units, unitInput]);
+    setColours([...colours, '#ff0000']);
+
+    setInputText('');
+  }
+
+
 
   return (
     <Table variant='dark'>
@@ -21,22 +32,28 @@ const Legend = ({ className, unitColours={} }) => {
 
       <tbody>
         {
-          Array(units).fill(0)
-            .map((_, i) => 
-              <tr key={ 'legend' + units[i] }>
-                <td key={ 'keyColour' + units[i] }style={{'backgroundColor': colours[i]}}></td>
-                <td key={ 'keyUnit'   + units[i] }>{ units[i] }</td>
-              </tr>
-            )
+          units.map((_, i) =>
+            <tr key={ 'legend' + units[i] }>
+              <td key={ 'keyColour' + units[i] }style={{'backgroundColor': colours[i]}}></td>
+              <td key={ 'keyUnit'   + units[i] }>{ units[i] }</td>
+            </tr>
+          )
         }
 
-        <tr>
+        <tr key={ 'inputrow' }>
             <td>
-              <input type="text">
+              <input 
+                type="text"
+                onChange={event => {setUnitInput(event.target.value)}}
+                value={ unitInput }
+                placeholder={ 'Add a unit' }
+                style={{'textAlign': 'center'}}
+              >
+
               </input>
             </td>
           <td>
-            <Button></Button>
+            <Button variant='primary' onClick={addUnit}></Button>
           </td>
         </tr>
       </tbody>
