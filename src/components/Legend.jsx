@@ -37,8 +37,6 @@ const Legend = ({ className, unitColourMap=[] }) => {
     setUnits(units.filter((_, i) => i !== index));
   }
 
-
-
   return (
     <Table 
       variant='dark'
@@ -62,7 +60,14 @@ const Legend = ({ className, unitColourMap=[] }) => {
             <tr key={ 'legend' + units[i] }>
               <td key={ 'keyColour' + units[i] }style={{'backgroundColor': colours[i]}}></td>
               <td key={ 'keyUnit'   + units[i] }>{ units[i] }</td>
-              <td key={ 'delete' + units[i] }> <Button onClick={ () => deleteRow(i) } > ! </Button> </td>
+              <td key={ 'delete' + units[i] }> 
+                <Button 
+                onClick={ () => deleteRow(i) }
+                style={{'width': '100%'}}
+                >
+                  !
+                </Button>
+              </td>
             </tr>
           )
         }
@@ -86,7 +91,13 @@ const Legend = ({ className, unitColourMap=[] }) => {
           </td>
           <td></td>
           <td>
-            <Button variant='primary' onClick={addUnit}>Add</Button>
+            <Button
+              variant='primary'
+              onClick={addUnit}
+              style={{'width': '100%'}}
+            >
+              Add
+            </Button>
           </td>
         </tr>
       </tbody>
