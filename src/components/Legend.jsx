@@ -47,11 +47,14 @@ const Legend = ({ className, unitColourMap=[] }) => {
           <th key={ 'legendTitle' } colSpan='3'> Legend </th>
         </tr>
 
-        <tr key={ 'legendHeading' }>
-          <th key={ 'colourHeading' }>Colour</th>
-          <th key={ 'unitcodeHeading' }>Key</th>
-          <th key={ 'unitDeleteHeading' }>Delete</th>    
-        </tr>
+        {
+          units.length > 0 &&
+            <tr key={ 'legendHeading' }>
+              <th key={ 'colourHeading' }>Colour</th>
+              <th key={ 'unitcodeHeading' }>Key</th>
+              <th key={ 'unitDeleteHeading' }>Delete</th>    
+            </tr>
+        }
       </thead>
 
       <tbody>

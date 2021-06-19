@@ -11,11 +11,11 @@ const TimetableInterface = ({ className }) => {
   return (
     <Container fluid>
       <Row>
-        <Col xl={8} lg={12}>
+        <Col xl={7} lg={12}>
           <Timetable timeStandard='12'/>
         </Col>
 
-        <Col xl={4} lg={12}>
+        <Col xl={5} lg={0}>
           <InsertionPanel />
           <Legend />
         </Col>
