@@ -21,31 +21,34 @@ const Legend = ({ className, unitColourMap=[] }) => {
 
   const [unitInput, setUnitInput] = useState('');
 
-  const updateColours = () => {
-    setColours(
-      getColours()
-    );
-  }
-
   const addUnit = () => {
-    if(units.length + 1 < availableColours.length) {
+    if(
+      units.length + 1 < availableColours.length &&
+      unitInput !== ''
+      ) {
       setColours(getColours(units.length + 1))
       setUnits([...units, unitInput]);
 
       setUnitInput('');
     }
-    // setColours([...colours, '#ff0000']);
   }
 
   const deleteRow = (index) => {
-    return units;
+    setUnits(units.filter((_, i) => i !== index));
   }
 
 
 
   return (
-    <Table variant='dark'>
+    <Table 
+      variant='dark'
+      style={{'tableLayout': 'fixed', 'width': '100%'}}
+    >
       <thead>
+        <tr>
+          <th key={ 'legendTitle' } colSpan='3'> Legend </th>
+        </tr>
+
         <tr key={ 'legendHeading' }>
           <th key={ 'colourHeading' }>Colour</th>
           <th key={ 'unitcodeHeading' }>Key</th>
@@ -65,24 +68,25 @@ const Legend = ({ className, unitColourMap=[] }) => {
         }
 
         <tr key={ 'inputrow' }>
-            <td>
-              <input 
-                type="text"
-                onChange={
-                  event =>
-                    (event.target.value.match(/^[0-9A-Z]+$/) || event.target.value === '') &&
-                      setUnitInput(event.target.value)
-                }
-                value={ unitInput }
-                placeholder={ 'Add a unit' }
-                style={{'textAlign': 'center'}}
-                onKeyDown={ event => (event.keyCode == 13) && addUnit()}
-              >
-
-              </input>
-            </td>
           <td>
-            <Button variant='primary' onClick={addUnit}></Button>
+            <input 
+              type="text"
+              onChange={
+                event =>
+                  (event.target.value.match(/^[0-9A-Z]+$/) || event.target.value === '') &&
+                    setUnitInput(event.target.value)
+              }
+              value={ unitInput }
+              placeholder={ 'Add a unit' }
+              style={{'textAlign': 'center', 'width': '200%'}}
+              onKeyDown={ event => (event.keyCode === 13) && addUnit()}
+            >
+
+            </input>
+          </td>
+          <td></td>
+          <td>
+            <Button variant='primary' onClick={addUnit}>Add</Button>
           </td>
         </tr>
       </tbody>

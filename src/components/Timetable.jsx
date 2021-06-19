@@ -7,7 +7,10 @@ const formatTime   = time => time > 9 ? time : '0' + time;
 const _12Hour = time => (time - 1) % 12 + 1;
 const _24Hour = time => time;
 
-const format12Hour = time => formatTime(_12Hour(time));
+const format12Hour = time => {
+  const suffix = time < 12 ? 'am' : 'pm';
+  return formatTime(_12Hour(time)) + suffix;
+}
 const format24Hour = time => formatTime(_24Hour(time));
 
 const dayMap = [
