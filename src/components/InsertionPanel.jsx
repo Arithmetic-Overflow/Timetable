@@ -8,7 +8,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import { availableColours, colourNameMap } from './colours';
 
-const InsertionPanel = ({ className, subjects=[] }) => {
+const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'] }) => {
   const [selected, setSelected] = useState('-');
 
   return (
@@ -26,11 +26,11 @@ const InsertionPanel = ({ className, subjects=[] }) => {
         </tr>
         <tr>
           <th>
-            Unit
+            Unit:
           </th>
 
-          <th colSpan='2'>
-            Time
+          <th colspan='2'>
+            Time:
           </th>
         </tr>
       </thead>
@@ -39,8 +39,9 @@ const InsertionPanel = ({ className, subjects=[] }) => {
         <tr>
           <td>
             <DropdownButton
-              title='idk'
+              title='Select a unit'
               variant='primary'
+              style={{'width': '100%'}}
             >
               {
                 subjects.map(
@@ -62,6 +63,12 @@ const InsertionPanel = ({ className, subjects=[] }) => {
                 'textAreaFocus': 'none'
               }}
             />
+          </td>
+
+          <td>
+            <Button style={{'width': '100%'}}>
+              Submit Time
+            </Button>
           </td>
         </tr>
       </tbody>
