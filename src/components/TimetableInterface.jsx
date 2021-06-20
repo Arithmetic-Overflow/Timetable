@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Timetable from './Timetable';
 import Legend from './Legend';
 import InsertionPanel from './InsertionPanel';
@@ -28,7 +28,10 @@ const TimetableInterface = ({ className }) => {
         </Col>
 
         <Col xl={5} lg={6}>
-          <InsertionPanel />
+          <InsertionPanel
+            allocations={ allocations }
+            setAllocations={ setAllocations }
+          />
           <Legend />
         </Col>
       </Row>

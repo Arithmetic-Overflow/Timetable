@@ -22,28 +22,27 @@ const dayMap = [
   'Friday'
 ];
 
-const gents = (t, timeFormat, d, av) => {
-  const dayStr = dayMap[d];
-  const a = [av[dayStr][t]];
-  return (
-    <Timeslot
-      key={ dayStr + t }
-      day={ dayStr }
-      time={ t }
-      allocation={ a } 
-      allocations={ av }
-    />
-  );
-}
-
-const generateTimeRow = (time, timeFormat, numCols, allocations) => {
+const generateTimeRow = (time, timeFormat, numCols, allocations, setAllocations) => {
   return (
     <tr key={ 'timerow' + time }>
       <th key={ 'time' + time }>
         { timeFormat(time) }
       </th>
 
-      { Array(numCols).fill(0).map((_, day) => gents(time, timeFormat, day, allocations)) }
+      {
+        Array(numCols)
+          .fill(0)
+          .map(
+            (_, day) => 
+            <Timeslot
+              key={ dayMap[day] + time }
+              day={ dayMap[day] }
+              time={ time }
+              allocations={ allocations }
+              setAllocations={ setAllocations }
+            />
+          )
+      }
     </tr>
   );
 }
@@ -52,6 +51,7 @@ const generateTimeRanges = (
   startTime,
   endTime,
   allocations,
+  setAllocations,
   timeFormat
 ) => {
   const numDays = dayMap.length;
@@ -60,7 +60,7 @@ const generateTimeRanges = (
   const times = Array(timeRange).fill(0).map((_, time) => time + startTime);
 
   return (
-    times.map(time => generateTimeRow(time, timeFormat, numDays, allocations))
+    times.map(time => generateTimeRow(time, timeFormat, numDays, allocations, setAllocations))
   );
 }
 
@@ -82,7 +82,6 @@ const Timetable = ({
       </tr>
     </thead>;
 
-  const tableBody = <tbody>{ generateTimeRanges(8, 20, allocations, timeFormat) } </tbody>;
   const table =
     <Table
     className={ className }
@@ -90,7 +89,10 @@ const Timetable = ({
     variant="dark"
     style={{'tableLayout': 'fixed'}}
     >
-      { heading }{ tableBody }
+      { heading }
+      <tbody>
+        { generateTimeRanges(8, 20, allocations, setAllocations, timeFormat) }
+      </tbody>;
     </Table>;
 
   return (

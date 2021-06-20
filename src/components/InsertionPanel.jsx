@@ -19,6 +19,8 @@ const daysMap = [
 const InsertionPanel = ({
   className,
   subjects=['CITS3003', 'CITS3404'],
+  allocations,
+  setAllocations,
   startTime=8,
   endTime=20
 }) => {
@@ -31,12 +33,31 @@ const InsertionPanel = ({
   const [selectedEndTime, setSelectedEndTime]     = useState(noSelection);
 
   const submitAllocation = () => {
-    console.log(selectedUnit, selectedDay, selectedStartTime, selectedEndTime);
+    if(
+          (selectedUnit != noSelection)
+          && (selectedDay != noSelection)
+          && (selectedStartTime != noSelection)
+          && (selectedEndTime != noSelection)
+    ) {
+      if(selectedStartTime < endTime
+        && selectedEndTime <= endTime
+        && selectedStartTime >= startTime
+        && selectedEndTime > startTime
+        ) {
+        const newAllocations = allocations;
+        Array(selectedEndTime - selectedStartTime)
+          .fill(0)
+          .map((_, i) => i + selectedStartTime)
+          .map(time => newAllocations[selectedDay][time] = 2);
 
-    setSelectedUnit(noSelection);
-    setSelectedDay(noSelection);
-    setSelectedStartTime(noSelection);
-    setSelectedEndTime(noSelection);
+        setAllocations(newAllocations);
+
+        setSelectedUnit(noSelection);
+        setSelectedDay(noSelection);
+        setSelectedStartTime(noSelection);
+        setSelectedEndTime(noSelection);
+      }
+    }
   }
 
   const darkInputStyle = {
