@@ -16,30 +16,33 @@ const daysMap = [
   'Friday'
 ];
 
-const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTime=8, endTime=19 }) => {
+const InsertionPanel = ({
+  className,
+  subjects=['CITS3003', 'CITS3404'],
+  startTime=8,
+  endTime=20
+}) => {
   const noSelection = '-';
   const [selectedUnit, setSelectedUnit] = useState(noSelection);
 
   const [selectedDay, setSelectedDay]   = useState(noSelection);
 
-  const [selectedTime, setSelectedTime]         = useState(noSelection);
-  const [selectedDuration, setSelectedDuration] = useState(noSelection);
-
-  const availbeDurations = 
-    Array(endTime - startTime + 1)
-      .fill(0)
-      .map((_, i) => i + 1);
-
-  const availableTimes = 
-    availbeDurations.map(i => i + startTime - 1);
+  const [selectedStartTime, setSelectedStartTime] = useState(noSelection);
+  const [selectedEndTime, setSelectedEndTime]     = useState(noSelection);
 
   const submitAllocation = () => {
-    const allocation = 5;
+    console.log(selectedUnit, selectedDay, selectedStartTime, selectedEndTime);
+
+    setSelectedUnit(noSelection);
+    setSelectedDay(noSelection);
+    setSelectedStartTime(noSelection);
+    setSelectedEndTime(noSelection);
   }
 
-  const darkDropdownItemStyle = {
+  const darkInputStyle = {
     'backgroundColor': '#282c34',
-    'color': 'white'
+    'color': 'white',
+    'fontSize': '16pt'
   };
 
   return (
@@ -51,29 +54,8 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
     >
       <thead>
         <tr>
-          <th colSpan='5'>
+          <th colSpan='2'>
             Adding Timeslots
-          </th>
-        </tr>
-        <tr>
-          <th>
-            Unit
-          </th>
-
-          <th>
-            Day
-          </th>
-
-          <th>
-            Time
-          </th>
-
-          <th>
-            Duration
-          </th>
-
-          <th>
-            Submit
           </th>
         </tr>
       </thead>
@@ -81,6 +63,7 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
       <tbody>
         <tr>
           <td>
+          Unit:
             <DropdownButton
               title={ selectedUnit }
               variant='primary'
@@ -89,7 +72,11 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
               {
                 subjects.map(
                   subject =>
-                    <Dropdown.Item style={darkDropdownItemStyle} eventKey={ subject } key={ subject }>
+                    <Dropdown.Item
+                      style={ darkInputStyle }
+                      eventKey={ subject } 
+                      key={ subject }
+                    >
                       { subject }
                     </Dropdown.Item>
                 )
@@ -98,6 +85,7 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
           </td>
 
           <td>
+            Day:
             <DropdownButton
               title={ selectedDay }
               variant='primary'
@@ -106,51 +94,50 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
               {
                 daysMap.map(
                   day =>
-                    <Dropdown.Item style={darkDropdownItemStyle} eventKey={ day } key={ day }>
+                    <Dropdown.Item
+                      style={ darkInputStyle }
+                      eventKey={ day } 
+                      key={ day }
+                    >
                       { day }
                     </Dropdown.Item>
                 )
               }
             </DropdownButton>
           </td>
+        </tr>
 
+        <tr>
           <td>
-            <DropdownButton
-              title={ selectedTime }
-              variant='primary'
-              onSelect={ (event) => setSelectedTime(event) }
-            >
-              {
-                availableTimes.map(
-                  time =>
-                    <Dropdown.Item style={darkDropdownItemStyle} eventKey={ time } key={ time + ':time' }>
-                      { time }
-                    </Dropdown.Item>
-                )
-              }
-            </DropdownButton>
+            Start:
+
+            <br />
+
+            <input
+              type='time'
+              style={ darkInputStyle }
+              onChange={(event) => setSelectedStartTime(parseInt(event.target.value.slice(0,2)))}
+            />
           </td>
 
           <td>
-            <DropdownButton
-              title={ selectedDuration }
-              variant='primary'
-              onSelect={ (event) => setSelectedDuration(event) }
-            >
-              {
-                availbeDurations.map(
-                  duration =>
-                    <Dropdown.Item style={darkDropdownItemStyle} eventKey={ duration } key={ duration + ':duration' }>
-                      { duration }
-                    </Dropdown.Item>
-                )
-              }
-            </DropdownButton>
+            End Time:
+  
+            <br />
+            
+            <input
+              type='time'
+              style={ darkInputStyle }
+              onChange={(event) => setSelectedEndTime(parseInt(event.target.value.slice(0,2)))}
+            />
           </td>
+        </tr>
 
-          <td>
+        <tr>
+          <td colSpan='2'>
             <Button
               onClick={ submitAllocation }
+              style={{'width': '100%'}}
             >
               Allocate
             </Button>

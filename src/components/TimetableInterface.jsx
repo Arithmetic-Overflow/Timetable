@@ -20,10 +20,14 @@ const TimetableInterface = ({ className }) => {
     <Container fluid>
       <Row>
         <Col xl={7} lg={12}>
-          <Timetable timeStandard='12' allocations={ allocations } setAllocations={ setAllocations } />
+          <Timetable
+            timeStandard='12'
+            allocations={ allocations }
+            setAllocations={ setAllocations }
+          />
         </Col>
 
-        <Col xl={5} lg={0}>
+        <Col xl={5} lg={6}>
           <InsertionPanel />
           <Legend />
         </Col>
