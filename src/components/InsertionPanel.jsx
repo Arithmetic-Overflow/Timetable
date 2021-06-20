@@ -25,12 +25,22 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
   const [selectedTime, setSelectedTime]         = useState(noSelection);
   const [selectedDuration, setSelectedDuration] = useState(noSelection);
 
-  const availbeDurations = Array(endTime - startTime + 1).fill(0).map((_, i) => i + 1);
-  const availableTimes = availbeDurations.map(i => i + startTime - 1);
+  const availbeDurations = 
+    Array(endTime - startTime + 1)
+      .fill(0)
+      .map((_, i) => i + 1);
+
+  const availableTimes = 
+    availbeDurations.map(i => i + startTime - 1);
 
   const submitAllocation = () => {
     const allocation = 5;
   }
+
+  const darkDropdownItemStyle = {
+    'backgroundColor': '#282c34',
+    'color': 'white'
+  };
 
   return (
     <Table
@@ -74,13 +84,12 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
             <DropdownButton
               title={ selectedUnit }
               variant='primary'
-              style={{'width': '100%'}}
               onSelect={ (event) => setSelectedUnit(event) }
             >
               {
                 subjects.map(
                   subject =>
-                    <Dropdown.Item eventKey={ subject } key={ subject }>
+                    <Dropdown.Item style={darkDropdownItemStyle} eventKey={ subject } key={ subject }>
                       { subject }
                     </Dropdown.Item>
                 )
@@ -92,13 +101,12 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
             <DropdownButton
               title={ selectedDay }
               variant='primary'
-              style={{'width': '100%'}}
               onSelect={ (event) => setSelectedDay(event) }
             >
               {
                 daysMap.map(
                   day =>
-                    <Dropdown.Item eventKey={ day } key={ day }>
+                    <Dropdown.Item style={darkDropdownItemStyle} eventKey={ day } key={ day }>
                       { day }
                     </Dropdown.Item>
                 )
@@ -110,13 +118,12 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
             <DropdownButton
               title={ selectedTime }
               variant='primary'
-              style={{'width': '100%'}}
               onSelect={ (event) => setSelectedTime(event) }
             >
               {
                 availableTimes.map(
                   time =>
-                    <Dropdown.Item eventKey={ time } key={ time + ':time' }>
+                    <Dropdown.Item style={darkDropdownItemStyle} eventKey={ time } key={ time + ':time' }>
                       { time }
                     </Dropdown.Item>
                 )
@@ -128,13 +135,12 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
             <DropdownButton
               title={ selectedDuration }
               variant='primary'
-              style={{'width': '100%'}}
               onSelect={ (event) => setSelectedDuration(event) }
             >
               {
                 availbeDurations.map(
                   duration =>
-                    <Dropdown.Item eventKey={ duration } key={ duration + ':duration' }>
+                    <Dropdown.Item style={darkDropdownItemStyle} eventKey={ duration } key={ duration + ':duration' }>
                       { duration }
                     </Dropdown.Item>
                 )
@@ -144,7 +150,6 @@ const InsertionPanel = ({ className, subjects=['CITS3003', 'CITS3404'], startTim
 
           <td>
             <Button
-              style={{'width': '100%'}}
               onClick={ submitAllocation }
             >
               Allocate

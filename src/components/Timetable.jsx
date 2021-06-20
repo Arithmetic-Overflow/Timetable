@@ -11,6 +11,7 @@ const format12Hour = time => {
   const suffix = time < 12 ? 'am' : 'pm';
   return formatTime(_12Hour(time)) + suffix;
 }
+
 const format24Hour = time => formatTime(_24Hour(time));
 
 const dayMap = [
@@ -24,7 +25,15 @@ const dayMap = [
 const gents = (t, timeFormat, d, av) => {
   const dayStr = dayMap[d];
   const a = [av[dayStr][t]];
-  return <Timeslot key={ dayStr + t } day={ dayStr } time={ t } allocation={ a } allocations={ av } />;
+  return (
+    <Timeslot
+      key={ dayStr + t }
+      day={ dayStr }
+      time={ t }
+      allocation={ a } 
+      allocations={ av }
+    />
+  );
 }
 
 const generateTimeRow = (time, timeFormat, numCols, allocations) => {
@@ -39,20 +48,32 @@ const generateTimeRow = (time, timeFormat, numCols, allocations) => {
   );
 }
 
-const generateTimeRanges = (startTime, endTime, allocations, timeFormat) => {
+const generateTimeRanges = (
+  startTime,
+  endTime,
+  allocations,
+  timeFormat
+) => {
   const numDays = dayMap.length;
   const timeRange = endTime - startTime;
 
   const times = Array(timeRange).fill(0).map((_, time) => time + startTime);
 
   return (
-    <tbody>
-      { times.map(time => generateTimeRow(time, timeFormat, numDays, allocations)) }
-    </tbody>
+    times.map(time => generateTimeRow(time, timeFormat, numDays, allocations))
   );
 }
 
-const buildTable = (className, allocations, startTime, endTime, timeFormat) => {
+const Timetable = ({
+  className,
+  timeStandard='12',
+  allocations,
+  setAllocations,
+  startTime=8,
+  endTime=20
+}) => {
+  const timeFormat = timeStandard === '12' ? format12Hour : format24Hour;
+
   const heading = 
     <thead>
       <tr key={ 'tableheading' }>
@@ -61,7 +82,7 @@ const buildTable = (className, allocations, startTime, endTime, timeFormat) => {
       </tr>
     </thead>;
 
-  const tableBody = generateTimeRanges(8, 20, allocations, timeFormat);
+  const tableBody = <tbody>{ generateTimeRanges(8, 20, allocations, timeFormat) } </tbody>;
   const table =
     <Table
     className={ className }
@@ -74,20 +95,6 @@ const buildTable = (className, allocations, startTime, endTime, timeFormat) => {
 
   return (
     table
-  );
-}
-
-const Timetable = ({ className, timeStandard='12', allocations }) => {
-  if(allocations === undefined) {
-    const allocMap = {};
-    dayMap.map(day => allocMap[day] = {});
-    allocations = allocMap;
-  }
-
-  const timeFormat = timeStandard === '12' ? format12Hour : format24Hour;
-
-  return (
-    buildTable(className, allocations, 8, 20, timeFormat)
   );
 };
 
