@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Timeslot from './Timeslot'
 
@@ -22,7 +22,23 @@ const dayMap = [
   'Friday'
 ];
 
-const generateTimeRow = (time, timeFormat, numCols, allocations, setAllocations) => {
+const getTimeslot = (day, time, allocations, allocateTime) => {
+  const dayName = dayMap[day];
+  const allocation = allocations[dayName][time];
+  const allocationValue = allocation ? allocation : 0;
+
+  const allocateTimeslot = value => allocateTime(dayName, time, value);
+  
+  return (
+    <Timeslot
+        key={ dayName + time }
+        allocation={ allocationValue }
+        allocateTimeslot={ allocateTimeslot }
+    />
+  );
+}
+
+const generateTimeRow = (time, timeFormat, numCols, allocations, allocateTime) => {
   return (
     <tr key={ 'timerow' + time }>
       <th key={ 'time' + time }>
@@ -34,13 +50,7 @@ const generateTimeRow = (time, timeFormat, numCols, allocations, setAllocations)
           .fill(0)
           .map(
             (_, day) => 
-            <Timeslot
-              key={ dayMap[day] + time }
-              day={ dayMap[day] }
-              time={ time }
-              allocations={ allocations }
-              setAllocations={ setAllocations }
-            />
+            getTimeslot(day, time, allocations, allocateTime)
           )
       }
     </tr>
@@ -51,7 +61,7 @@ const generateTimeRanges = (
   startTime,
   endTime,
   allocations,
-  setAllocations,
+  allocateTime,
   timeFormat
 ) => {
   const numDays = dayMap.length;
@@ -60,18 +70,23 @@ const generateTimeRanges = (
   const times = Array(timeRange).fill(0).map((_, time) => time + startTime);
 
   return (
-    times.map(time => generateTimeRow(time, timeFormat, numDays, allocations, setAllocations))
+    times.map(time => generateTimeRow(time, timeFormat, numDays, allocations, allocateTime))
   );
 }
 
 const Timetable = ({
   className,
   timeStandard='12',
-  allocations,
-  setAllocations,
+  allocs,
+  allocateTime,
   startTime=8,
   endTime=20
 }) => {
+  const [allocations, setAllocations] = useState(allocs);
+  useEffect(
+    () => {setAllocations(allocs)},
+    [allocs]
+  );
   const timeFormat = timeStandard === '12' ? format12Hour : format24Hour;
 
   const heading = 
@@ -91,8 +106,8 @@ const Timetable = ({
     >
       { heading }
       <tbody>
-        { generateTimeRanges(8, 20, allocations, setAllocations, timeFormat) }
-      </tbody>;
+        { generateTimeRanges(8, 20, allocations, allocateTime, timeFormat) }
+      </tbody>
     </Table>;
 
   return (

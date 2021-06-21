@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-import { availableColours, colourNameMap } from './colours';
+// import { availableColours, colourNameMap } from './colours';
 
 const daysMap = [
   'Monday',
@@ -20,7 +20,7 @@ const InsertionPanel = ({
   className,
   subjects=['CITS3003', 'CITS3404'],
   allocations,
-  setAllocations,
+  allocateTime,
   startTime=8,
   endTime=20
 }) => {
@@ -34,23 +34,20 @@ const InsertionPanel = ({
 
   const submitAllocation = () => {
     if(
-          (selectedUnit != noSelection)
-          && (selectedDay != noSelection)
-          && (selectedStartTime != noSelection)
-          && (selectedEndTime != noSelection)
+          (selectedUnit !== noSelection)
+          && (selectedDay !== noSelection)
+          && (selectedStartTime !== noSelection)
+          && (selectedEndTime !== noSelection)
     ) {
       if(selectedStartTime < endTime
         && selectedEndTime <= endTime
         && selectedStartTime >= startTime
         && selectedEndTime > startTime
         ) {
-        const newAllocations = allocations;
         Array(selectedEndTime - selectedStartTime)
           .fill(0)
           .map((_, i) => i + selectedStartTime)
-          .map(time => newAllocations[selectedDay][time] = 2);
-
-        setAllocations(newAllocations);
+          .map(time => allocateTime(selectedDay, time, 2));
 
         setSelectedUnit(noSelection);
         setSelectedDay(noSelection);

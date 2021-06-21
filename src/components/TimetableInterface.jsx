@@ -7,6 +7,7 @@ import InsertionPanel from './InsertionPanel';
 import { Container, Row, Col } from 'react-bootstrap';
 
 // Row = 12 cols or 100%
+
 const TimetableInterface = ({ className }) => {
   const [allocations, setAllocations] = useState({
     'Monday'    : {},
@@ -16,21 +17,27 @@ const TimetableInterface = ({ className }) => {
     'Friday'    : {},
   });
 
+  const allocateTime = (day, time, value) => {
+    const newAllocations = {...allocations};
+    newAllocations[day][time] = value;
+    setAllocations(newAllocations);
+  }
+
   return (
     <Container fluid>
       <Row>
         <Col xl={7} lg={12}>
           <Timetable
             timeStandard='12'
-            allocations={ allocations }
-            setAllocations={ setAllocations }
+            allocs={ allocations }
+            allocateTime={ allocateTime }
           />
         </Col>
 
         <Col xl={5} lg={6}>
           <InsertionPanel
             allocations={ allocations }
-            setAllocations={ setAllocations }
+            allocateTime={ allocateTime }
           />
           <Legend />
         </Col>

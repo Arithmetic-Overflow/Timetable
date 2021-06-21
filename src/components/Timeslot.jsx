@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { availableColours, colourNameMap } from './colours';
 
-const Timeslot = ({ className, day, time, allocations, setAllocations }) => {
-    const originalColour = colourNameMap[availableColours[allocations[day][time]]];
-    const [colour, setColour] = useState(originalColour);
+const Timeslot = ({ className, allocation, allocateTimeslot }) => {
+    const getColour = allocation => colourNameMap[availableColours[allocation]];
+    const [colour, setColour] = useState(getColour(allocation));
+
+    useEffect(() => {
+            setColour(getColour(allocation));
+        },
+        [allocation]
+    );
 
     const onClick = () => {
-        const curr = allocations[day][time] !== undefined ? allocations[day][time] : 0;
-
-        const newAllocations = allocations;
-        newAllocations[day][time] = (curr + 1) % availableColours.length;
-        setAllocations(newAllocations);
-        setColour(colourNameMap[availableColours[allocations[day][time]]]);
+        const newVal = (allocation + 1) % availableColours.length;
+        allocateTimeslot(newVal);
     }
 
     return (
