@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Timetable from './Timetable';
 import Legend from './Legend';
 import InsertionPanel from './InsertionPanel';

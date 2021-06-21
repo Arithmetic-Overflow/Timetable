@@ -22,37 +22,43 @@ const InsertionPanel = ({
   allocations,
   allocateTime,
   startTime=8,
-  endTime=20
+  endTime=21
 }) => {
   const noSelection = '-';
+  const noTimeSelection = '';
   const [selectedUnit, setSelectedUnit] = useState(noSelection);
 
   const [selectedDay, setSelectedDay]   = useState(noSelection);
 
-  const [selectedStartTime, setSelectedStartTime] = useState(noSelection);
-  const [selectedEndTime, setSelectedEndTime]     = useState(noSelection);
+  const [selectedStartTime, setSelectedStartTime] = useState(noTimeSelection);
+  const [selectedEndTime, setSelectedEndTime]     = useState(noTimeSelection);
 
   const submitAllocation = () => {
     if(
           (selectedUnit !== noSelection)
           && (selectedDay !== noSelection)
-          && (selectedStartTime !== noSelection)
-          && (selectedEndTime !== noSelection)
+          && (selectedStartTime !== noTimeSelection)
+          && (selectedEndTime !== noTimeSelection)
     ) {
-      if(selectedStartTime < endTime
-        && selectedEndTime <= endTime
-        && selectedStartTime >= startTime
-        && selectedEndTime > startTime
+
+      const start = parseInt(selectedStartTime.slice(0, 2));
+      const end   = parseInt(selectedEndTime.slice(0, 2));
+
+      if(start < endTime
+        && end <= endTime
+        && start >= startTime
+        && end > startTime
         ) {
-        Array(selectedEndTime - selectedStartTime)
+        console.log('here')
+        Array(end - start)
           .fill(0)
-          .map((_, i) => i + selectedStartTime)
+          .map((_, i) => i + start)
           .map(time => allocateTime(selectedDay, time, 2));
 
         setSelectedUnit(noSelection);
         setSelectedDay(noSelection);
-        setSelectedStartTime(noSelection);
-        setSelectedEndTime(noSelection);
+        setSelectedStartTime(noTimeSelection);
+        setSelectedEndTime(noTimeSelection);
       }
     }
   }
@@ -134,7 +140,8 @@ const InsertionPanel = ({
             <input
               type='time'
               style={ darkInputStyle }
-              onChange={(event) => setSelectedStartTime(parseInt(event.target.value.slice(0,2)))}
+              onChange={(event) => {setSelectedStartTime(event.target.value)}}
+              value={ selectedStartTime }
             />
           </td>
 
@@ -146,7 +153,8 @@ const InsertionPanel = ({
             <input
               type='time'
               style={ darkInputStyle }
-              onChange={(event) => setSelectedEndTime(parseInt(event.target.value.slice(0,2)))}
+              onChange={(event) => {setSelectedEndTime(event.target.value); console.log(event.target.value.slice(0,2))}}
+              value={ selectedEndTime }
             />
           </td>
         </tr>
