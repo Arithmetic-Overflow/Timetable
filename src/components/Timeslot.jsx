@@ -16,11 +16,13 @@ const Timeslot = ({ className, allocationIndex, allocateTimeslot, unitColours, u
         [allocationIndex, unitColours]
     );
 
+    // cycle through colours on click
     const onClick = () => {
         const newVal = (unitIndex + 1) % coloursList.length;
         allocateTimeslot(newVal);
     }
 
+    // clear colour on double click
     const onDoubleClick = () => {
         allocateTimeslot(-1);
     }

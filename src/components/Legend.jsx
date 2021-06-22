@@ -25,6 +25,20 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, al
     }
   }
 
+  // Enter does the same as the add button
+  const handleAdditionOnEnter = event => {
+    if (event.keyCode === 13) {
+      handleUnitAddition()
+    }
+  }
+
+  // handles the onChange event of the input
+  const updateUnitInput = event => {
+    if (event.target.value.match(/^[A-Z]+[0-9A-Z]*$/) || event.target.value === '') {
+      setUnitInput(event.target.value);
+    }
+  }
+
   return (
     <Table 
       variant='dark'
@@ -70,15 +84,11 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, al
               <td>
                 <input 
                   type="text"
-                  onChange={
-                    event =>
-                      (event.target.value.match(/^[0-9A-Z]+$/) || event.target.value === '') &&
-                        setUnitInput(event.target.value)
-                  }
+                  onChange={ updateUnitInput }
                   value={ unitInput }
                   placeholder={ 'Add a unit' }
                   style={{'textAlign': 'center', 'width': '200%'}}
-                  onKeyDown={ event => (event.keyCode === 13) && handleUnitAddition()}
+                  onKeyDown={ handleAdditionOnEnter }
                 >          
                 </input>
               </td>

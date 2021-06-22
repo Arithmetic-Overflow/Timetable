@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Timeslot from './Timeslot'
 
+// time formatting functions...
+
+// add leading 0s
 const formatTime   = time => time > 9 ? time : '0' + time;
 
 const _12Hour = time => (time - 1) % 12 + 1;
@@ -22,6 +25,7 @@ const dayMap = [
   'Friday'
 ];
 
+// return a timeslot component based on the allocation of the timeslot
 const getTimeslot = (
   day,
   time,
@@ -48,6 +52,7 @@ const getTimeslot = (
   );
 }
 
+// generates a row of timeslots in the table
 const generateTimeRow = (
   time,
   timeFormat,
@@ -75,6 +80,7 @@ const generateTimeRow = (
   );
 }
 
+// generates all rows of the table
 const generateTimeRanges = (
   startTime,
   endTime,
@@ -141,7 +147,17 @@ const Timetable = ({
     >
       { heading }
       <tbody>
-        { generateTimeRanges(startTime, endTime, allocations, allocateTime, units, unitColours, timeFormat) }
+        {
+          generateTimeRanges(
+            startTime,
+            endTime,
+            allocations,
+            allocateTime,
+            units,
+            unitColours,
+            timeFormat
+          ) 
+        }
       </tbody>
     </Table>;
 
@@ -149,7 +165,5 @@ const Timetable = ({
     table
   );
 };
-
-Timetable.displayName = 'Timetable';
 
 export default Timetable;

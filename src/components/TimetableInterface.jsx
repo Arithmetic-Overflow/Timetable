@@ -30,8 +30,6 @@ const TimetableInterface = ({ className }) => {
     setAllocations(newAllocations);
   }
 
-  const [units, setUnits]               = useState([]);
-
   const allColours = [
     '#ee2200',
     '#22eeee',
@@ -40,6 +38,9 @@ const TimetableInterface = ({ className }) => {
     '#dddd22'
   ]
 
+  // an array of units and colours
+  // the unit in units[i] has the colour in unitColours[i]
+  const [units, setUnits]             = useState([]);
   const [unitColours, setUnitColours] = useState([]);
 
   // lists all colours not being used
@@ -56,6 +57,8 @@ const TimetableInterface = ({ className }) => {
     return getAvailableColours().length === 0;
   }
 
+  // appends a unit to the units array
+  // appends a colour to the colour array to pair with it
   const addUnit = unit => {
     if(!allColoursExhausted()) {
       const newColour = getAvailableColours()[0];
@@ -68,9 +71,11 @@ const TimetableInterface = ({ className }) => {
   const deleteUnitIndex = index => {
     const unitName = units[index];
 
+    // remove it from the units and colours array
     setUnits(units.filter((_, i) => i !== index));
     setUnitColours(unitColours.filter((_, i) => i !== index));
 
+    // remove all instances of the unit from any previous allocations
     const newAllocations = {...allocations};
 
     const days  = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -79,6 +84,7 @@ const TimetableInterface = ({ className }) => {
       .fill(0)
       .map((_, i) => i + startTime);
 
+    // iterate over all allocations setting the value of unitName to the empty string
     days.map(
       day =>
         times.map(

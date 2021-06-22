@@ -31,36 +31,55 @@ const InsertionPanel = ({
     [unitList]
   );
 
+  // represents empty input values
+  // '-' is a stylistic choice
   const noSelection = '-';
   const noTimeSelection = '';
 
+  // variables to track dropdown input values
   const [selectedUnit, setSelectedUnit] = useState(noSelection);
   const [selectedDay, setSelectedDay]   = useState(noSelection);
 
+  // variables to track time input values
   const [selectedStartTime, setSelectedStartTime] = useState(noTimeSelection);
   const [selectedEndTime, setSelectedEndTime]     = useState(noTimeSelection);
 
+  const containsBlankInput = () => {
+    return (
+      (selectedUnit         === noSelection)
+      || (selectedDay       === noSelection)
+      || (selectedStartTime === noTimeSelection)
+      || (selectedEndTime   === noTimeSelection)
+    );
+  }
+
+  const timesInCorrectRange = (start, end) => {
+    return (
+      (start    <   endTime)
+      && (end   <=  endTime)
+      && (start >=  startTime)
+      && (end   >   startTime)
+    );
+  }
+
+  const validInputs = (start, end) => {
+    return (
+      !containsBlankInput() && timesInCorrectRange(start, end)
+    );
+  }
+
   // allocates times based on the selected attributes
   const submitAllocation = () => {
-    if(
-          (selectedUnit !== noSelection)
-          && (selectedDay !== noSelection)
-          && (selectedStartTime !== noTimeSelection)
-          && (selectedEndTime !== noTimeSelection)
-    ) {
-      const start = parseInt(selectedStartTime.slice(0, 2));
-      const end   = parseInt(selectedEndTime.slice(0, 2));
+    const start = parseInt(selectedStartTime.slice(0, 2));
+    const end   = parseInt(selectedEndTime.slice(0, 2));
 
-      if(start < endTime
-        && end <= endTime
-        && start >= startTime
-        && end > startTime
-        ) {
-        Array(end - start)
-          .fill(0)
-          .map((_, i) => i + start)
-          .map(time => allocateTime(selectedDay, time, selectedUnit));
-      }
+    // blank fields not allowed
+    if(validInputs(start, end)) {
+      console.log('here')
+      Array(end - start)
+        .fill(0)
+        .map((_, i) => i + start)
+        .map(time => allocateTime(selectedDay, time, selectedUnit));
     }
 
     setSelectedUnit(noSelection);
@@ -68,7 +87,7 @@ const InsertionPanel = ({
     setSelectedStartTime(noTimeSelection);
     setSelectedEndTime(noTimeSelection);
   }
-
+  
   const darkInputStyle = {
     'backgroundColor': '#282c34',
     'color': 'white',
