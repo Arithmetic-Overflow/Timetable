@@ -9,6 +9,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 // Row = 12 cols or 100%
 
 const TimetableInterface = ({ className }) => {
+  const startTime = 8;
+  const endTime   = 21;
+
   const [allocations, setAllocations] = useState({
     'Monday'    : {},
     'Tuesday'   : {},
@@ -57,8 +60,36 @@ const TimetableInterface = ({ className }) => {
 
   // delete a unit and remove its colour from the unitColours array
   const deleteUnitIndex = index => {
+    const unitName = units[index];
+
     setUnits(units.filter((_, i) => i !== index));
     setUnitColours(unitColours.filter((_, i) => i !== index));
+
+    const newAllocations = {...allocations};
+
+    const days  = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    const times = 
+      Array(endTime - startTime)
+      .fill(0)
+      .map((_, i) => i + startTime);
+
+    days.map(
+      day =>
+        times.map(
+          time => {
+            const timeStr = String(time);
+            const allocation = newAllocations[day][timeStr];
+            newAllocations[day][timeStr] =
+              allocation === unitName ?
+                '' :
+                allocation;
+
+            return allocations === unitName;
+          }
+        )
+    );
+
+    setAllocations(newAllocations);
   }
 
   return (

@@ -56,7 +56,6 @@ const InsertionPanel = ({
         && start >= startTime
         && end > startTime
         ) {
-        console.log('unit', setSelectedUnit);
         Array(end - start)
           .fill(0)
           .map((_, i) => i + start)
@@ -160,7 +159,7 @@ const InsertionPanel = ({
             <input
               type='time'
               style={ darkInputStyle }
-              onChange={(event) => {setSelectedEndTime(event.target.value); console.log(event.target.value.slice(0,2))}}
+              onChange={(event) => {setSelectedEndTime(event.target.value);}}
               value={ selectedEndTime }
             />
           </td>
