@@ -44,7 +44,7 @@ const TimetableInterface = ({ className }) => {
   }
 
   const maxColoursReached = () => {
-    return getAvailableColours().length == 0;
+    return getAvailableColours().length === 0;
   }
 
   const addUnit = unit => {
@@ -83,7 +83,7 @@ const TimetableInterface = ({ className }) => {
             deleteUnitIndex={ deleteUnitIndex }
 
             unitColours={ unitColours }
-            maxColoursReached={ maxColoursReached }
+            maxColoursReached={ maxColoursReached() }
           />
         </Col>
       </Row>
