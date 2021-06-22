@@ -62,8 +62,9 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, ma
                 <Button 
                 onClick={ () => deleteUnitIndex(i) }
                 style={{'width': '100%'}}
+                variant='danger'
                 >
-                  !
+                  !!!
                 </Button>
               </td>
             </tr>
