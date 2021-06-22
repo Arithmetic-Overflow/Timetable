@@ -26,13 +26,14 @@ const InsertionPanel = ({
 }) => {
   const noSelection = '-';
   const noTimeSelection = '';
-  const [selectedUnit, setSelectedUnit] = useState(noSelection);
 
+  const [selectedUnit, setSelectedUnit] = useState(noSelection);
   const [selectedDay, setSelectedDay]   = useState(noSelection);
 
   const [selectedStartTime, setSelectedStartTime] = useState(noTimeSelection);
   const [selectedEndTime, setSelectedEndTime]     = useState(noTimeSelection);
 
+  // allocates times based on the selected attributes
   const submitAllocation = () => {
     if(
           (selectedUnit !== noSelection)
@@ -40,7 +41,6 @@ const InsertionPanel = ({
           && (selectedStartTime !== noTimeSelection)
           && (selectedEndTime !== noTimeSelection)
     ) {
-
       const start = parseInt(selectedStartTime.slice(0, 2));
       const end   = parseInt(selectedEndTime.slice(0, 2));
 
@@ -54,13 +54,13 @@ const InsertionPanel = ({
           .fill(0)
           .map((_, i) => i + start)
           .map(time => allocateTime(selectedDay, time, 2));
-
-        setSelectedUnit(noSelection);
-        setSelectedDay(noSelection);
-        setSelectedStartTime(noTimeSelection);
-        setSelectedEndTime(noTimeSelection);
       }
     }
+
+    setSelectedUnit(noSelection);
+    setSelectedDay(noSelection);
+    setSelectedStartTime(noTimeSelection);
+    setSelectedEndTime(noTimeSelection);
   }
 
   const darkInputStyle = {

@@ -80,7 +80,7 @@ const Timetable = ({
   allocs,
   allocateTime,
   startTime=8,
-  endTime=20
+  endTime=21
 }) => {
   const [allocations, setAllocations] = useState(allocs);
   useEffect(
@@ -106,7 +106,7 @@ const Timetable = ({
     >
       { heading }
       <tbody>
-        { generateTimeRanges(8, 20, allocations, allocateTime, timeFormat) }
+        { generateTimeRanges(startTime, endTime, allocations, allocateTime, timeFormat) }
       </tbody>
     </Table>;
 
