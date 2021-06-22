@@ -66,14 +66,17 @@ const TimetableInterface = ({ className }) => {
       <Row>
         <Col xl={7} lg={12}>
           <Timetable
-            timeStandard='12'
+            unitList={ units }
+            colourList={ unitColours }
             allocs={ allocations }
             allocateTime={ allocateTime }
+            timeStandard='12'
           />
         </Col>
 
         <Col xl={5} lg={6}>
           <InsertionPanel
+            unitList={ units }
             allocations={ allocations }
             allocateTime={ allocateTime }
           />

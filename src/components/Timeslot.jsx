@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { availableColours, colourNameMap } from './colours';
 
-const Timeslot = ({ className, allocation, allocateTimeslot }) => {
-    const getColour = allocation => colourNameMap[availableColours[allocation]];
-    const [colour, setColour] = useState(getColour(allocation));
+const Timeslot = ({ className, allocationIndex, allocateTimeslot, unitColours, unitList }) => {
+    const [coloursList, setColoursList] = useState(unitColours);
 
-    useEffect(() => {
-            setColour(getColour(allocation));
+    const [unitIndex, setUnitIndex] = useState(allocationIndex);
+
+    const [colour, setColour] = useState(coloursList[allocationIndex]);
+
+    useEffect(
+        () => {
+            setColoursList(unitColours)
+            setUnitIndex(allocationIndex);
+            setColour(unitColours[allocationIndex]);
         },
-        [allocation]
+        [allocationIndex, unitColours]
     );
 
     const onClick = () => {
-        const newVal = (allocation + 1) % availableColours.length;
+        const newVal = (unitIndex + 1) % coloursList.length;
         allocateTimeslot(newVal);
     }
 
+    const onDoubleClick = () => {
+        allocateTimeslot(-1);
+    }
+
     return (
-        <td style={{'backgroundColor': colour}} onClick={ onClick } />
+        <td style={{'backgroundColor': colour}} onClick={ onClick } onDoubleClick={ onDoubleClick } />
     );
 };
 

@@ -19,7 +19,6 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, ma
   );
 
   const [maxUnitsReached, setMaxUnitsReached] = useState(maxColoursReached);
-  console.log(maxUnitsReached);
 
   useEffect(
     () => setMaxUnitsReached(maxColoursReached),
@@ -72,7 +71,7 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, ma
         }
 
         {
-          (!maxColoursReached) &&            
+          (!maxUnitsReached) &&            
             <tr key={ 'inputrow' }>
               <td>
                 <input 
@@ -103,7 +102,7 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, ma
         }
 
         {
-          (maxColoursReached) &&
+          (maxUnitsReached) &&
             <tr key={ 'maxReached' }>
               <td colSpan='3'>
                 All Colours Exhausted

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-dom';
 
 import Table from 'react-bootstrap/Table';
@@ -18,12 +18,19 @@ const daysMap = [
 
 const InsertionPanel = ({
   className,
-  subjects=['CITS3003', 'CITS3404'],
+  unitList,
   allocations,
   allocateTime,
   startTime=8,
   endTime=21
 }) => {
+  const [units, setUnits] = useState(unitList);
+
+  useEffect(
+    () => {setUnits(unitList)},
+    [unitList]
+  );
+
   const noSelection = '-';
   const noTimeSelection = '';
 
@@ -49,11 +56,10 @@ const InsertionPanel = ({
         && start >= startTime
         && end > startTime
         ) {
-        console.log('here')
         Array(end - start)
           .fill(0)
           .map((_, i) => i + start)
-          .map(time => allocateTime(selectedDay, time, 2));
+          .map(time => allocateTime(selectedDay, time, setSelectedUnit));
       }
     }
 
@@ -94,7 +100,7 @@ const InsertionPanel = ({
               onSelect={ (event) => setSelectedUnit(event) }
             >
               {
-                subjects.map(
+                units.map(
                   subject =>
                     <Dropdown.Item
                       style={ darkInputStyle }
