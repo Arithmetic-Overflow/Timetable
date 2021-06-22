@@ -17,10 +17,48 @@ const TimetableInterface = ({ className }) => {
     'Friday'    : {},
   });
 
-  const allocateTime = (day, time, value) => {
+  // allots a time to a specific unit
+  const allocateTime = (day, time, unit) => {
     const newAllocations = {...allocations};
-    newAllocations[day][time] = value;
+    newAllocations[day][time] = unit;
     setAllocations(newAllocations);
+  }
+
+  const [units, setUnits]               = useState([]);
+
+  const allColours = [
+    '#ee2200',
+    '#22eeee',
+    '#66dd00',
+    '#ff77ff',
+    '#dddd22'
+  ]
+  const [unitColours, setUnitColours] = useState([]);
+
+  const getAvailableColours = () => {
+    return (
+      allColours.filter(
+        colour => !unitColours.includes(colour)
+      )
+    );
+  }
+
+  const maxColoursReached = () => {
+    return getAvailableColours.length > 0;
+  }
+
+  const addUnit = unit => {
+    if(!maxColoursReached()) {
+      const newColour = getAvailableColours()[0];
+      setUnits([...units, unit]);
+      setUnitColours([...unitColours, newColour]);
+    }
+  }
+
+  // delete a unit and remove its colour from the unitColours array
+  const deleteUnitIndex = index => {
+    setUnits(units.filter((_, i) => i !== index));
+    setUnitColours(unitColours.filter((_, i) => i !== index));
   }
 
   return (
@@ -39,7 +77,14 @@ const TimetableInterface = ({ className }) => {
             allocations={ allocations }
             allocateTime={ allocateTime }
           />
-          <Legend />
+          <Legend
+            unitList={ units }
+            addUnit={ addUnit }
+            deleteUnitIndex={ deleteUnitIndex }
+
+            unitColours={ unitColours }
+            maxColoursReached={ maxColoursReached }
+          />
         </Col>
       </Row>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-dom';
 
 import Table from 'react-bootstrap/Table';
@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import { availableColours, colourNameMap } from './colours';
 
-const Legend = ({ className, unitColourMap=[] }) => {
+const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex }) => {
   const getColours = (n) => {
     return(
       Array(n)
@@ -16,25 +16,28 @@ const Legend = ({ className, unitColourMap=[] }) => {
         )
       );
   }
-  const [units, setUnits]     = useState(unitColourMap);
-  const [colours, setColours] = useState(getColours(units.length));
+  const [units, setUnits]     = useState(unitList);
+  const [colours, setColours] = useState(unitColours);
 
   const [unitInput, setUnitInput] = useState('');
 
-  const addUnit = () => {
+  useEffect(
+    () => {
+      setUnits(unitList);
+      setColours(unitColours);
+    },
+    [unitList, unitColours]
+  );
+
+  const handleUnitAddition = () => {
     if(
       units.length + 1 < availableColours.length &&
       unitInput !== ''
       ) {
-      setColours(getColours(units.length + 1))
-      setUnits([...units, unitInput]);
+      addUnit(unitInput);
 
       setUnitInput('');
     }
-  }
-
-  const deleteRow = (index) => {
-    setUnits(units.filter((_, i) => i !== index));
   }
 
   return (
@@ -65,7 +68,7 @@ const Legend = ({ className, unitColourMap=[] }) => {
               <td key={ 'keyUnit'   + units[i] }>{ units[i] }</td>
               <td key={ 'delete' + units[i] }> 
                 <Button 
-                onClick={ () => deleteRow(i) }
+                onClick={ () => deleteUnitIndex(i) }
                 style={{'width': '100%'}}
                 >
                   !
@@ -87,7 +90,7 @@ const Legend = ({ className, unitColourMap=[] }) => {
               value={ unitInput }
               placeholder={ 'Add a unit' }
               style={{'textAlign': 'center', 'width': '200%'}}
-              onKeyDown={ event => (event.keyCode === 13) && addUnit()}
+              onKeyDown={ event => (event.keyCode === 13) && handleUnitAddition()}
             >
 
             </input>
@@ -96,7 +99,7 @@ const Legend = ({ className, unitColourMap=[] }) => {
           <td>
             <Button
               variant='primary'
-              onClick={addUnit}
+              onClick={handleUnitAddition}
               style={{'width': '100%'}}
             >
               Add
