@@ -29,9 +29,9 @@ const TimetableInterface = ({ className }) => {
   const allColours = [
     '#ee2200',
     '#22eeee',
-    '#66dd00',
-    '#ff77ff',
-    '#dddd22'
+    // '#66dd00',
+    // '#ff77ff',
+    // '#dddd22'
   ]
   const [unitColours, setUnitColours] = useState([]);
 
@@ -44,7 +44,7 @@ const TimetableInterface = ({ className }) => {
   }
 
   const maxColoursReached = () => {
-    return getAvailableColours.length > 0;
+    return getAvailableColours().length == 0;
   }
 
   const addUnit = unit => {

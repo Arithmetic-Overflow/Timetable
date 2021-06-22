@@ -6,16 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import { availableColours, colourNameMap } from './colours';
 
-const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex }) => {
-  const getColours = (n) => {
-    return(
-      Array(n)
-        .fill(0)
-        .map(
-          (_, i) => colourNameMap[availableColours[i+1]]
-        )
-      );
-  }
+const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, maxColoursReached }) => {
   const [units, setUnits]     = useState(unitList);
   const [colours, setColours] = useState(unitColours);
 
@@ -27,6 +18,13 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex }) 
       setColours(unitColours);
     },
     [unitList, unitColours]
+  );
+
+  const [maxUnitsReached, setMaxUnitsReached] = useState(maxColoursReached);
+
+  useEffect(
+    () => setMaxUnitsReached(maxColoursReached),
+    [maxColoursReached]
   );
 
   const handleUnitAddition = () => {
@@ -78,34 +76,46 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex }) 
           )
         }
 
-        <tr key={ 'inputrow' }>
-          <td>
-            <input 
-              type="text"
-              onChange={
-                event =>
-                  (event.target.value.match(/^[0-9A-Z]+$/) || event.target.value === '') &&
-                    setUnitInput(event.target.value)
-              }
-              value={ unitInput }
-              placeholder={ 'Add a unit' }
-              style={{'textAlign': 'center', 'width': '200%'}}
-              onKeyDown={ event => (event.keyCode === 13) && handleUnitAddition()}
-            >
+        {
+          (!maxColoursReached()) &&            
+            <tr key={ 'inputrow' }>
+              <td>
+                <input 
+                  type="text"
+                  onChange={
+                    event =>
+                      (event.target.value.match(/^[0-9A-Z]+$/) || event.target.value === '') &&
+                        setUnitInput(event.target.value)
+                  }
+                  value={ unitInput }
+                  placeholder={ 'Add a unit' }
+                  style={{'textAlign': 'center', 'width': '200%'}}
+                  onKeyDown={ event => (event.keyCode === 13) && handleUnitAddition()}
+                >          
+                </input>
+              </td>
+              <td></td>
+              <td>
+                <Button
+                  variant='primary'
+                  onClick={handleUnitAddition}
+                  style={{'width': '100%'}}
+                >
+                  Add
+                </Button>
+              </td>
+            </tr>
+        }
 
-            </input>
-          </td>
-          <td></td>
-          <td>
-            <Button
-              variant='primary'
-              onClick={handleUnitAddition}
-              style={{'width': '100%'}}
-            >
-              Add
-            </Button>
-          </td>
-        </tr>
+        {
+          (maxColoursReached()) &&
+            <tr key={ 'maxReached' }>
+              <td colSpan='3'>
+                All Colours Exhausted
+              </td>
+            </tr>
+        }
+
       </tbody>
     </Table>
   );
