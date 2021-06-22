@@ -26,7 +26,7 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, ma
   );
 
   const handleUnitAddition = () => {
-    if(!maxColoursReached) {
+    if(!maxColoursReached && unitInput !== '') {
       addUnit(unitInput);
       setUnitInput('');
     }
