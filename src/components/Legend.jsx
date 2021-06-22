@@ -4,7 +4,7 @@ import 'react-dom';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
-const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, maxColoursReached }) => {
+const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, allColoursExhausted }) => {
   const [units, setUnits]     = useState(unitList);
   const [colours, setColours] = useState(unitColours);
 
@@ -18,15 +18,8 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, ma
     [unitList, unitColours]
   );
 
-  const [maxUnitsReached, setMaxUnitsReached] = useState(maxColoursReached);
-
-  useEffect(
-    () => setMaxUnitsReached(maxColoursReached),
-    [maxColoursReached]
-  );
-
   const handleUnitAddition = () => {
-    if(!maxColoursReached && unitInput !== '') {
+    if(!allColoursExhausted() && unitInput !== '') {
       addUnit(unitInput);
       setUnitInput('');
     }
@@ -72,7 +65,7 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, ma
         }
 
         {
-          (!maxUnitsReached) &&            
+          (!allColoursExhausted()) &&            
             <tr key={ 'inputrow' }>
               <td>
                 <input 
@@ -103,7 +96,7 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, ma
         }
 
         {
-          (maxUnitsReached) &&
+          (allColoursExhausted()) &&
             <tr key={ 'maxReached' }>
               <td colSpan='3'>
                 All Colours Exhausted

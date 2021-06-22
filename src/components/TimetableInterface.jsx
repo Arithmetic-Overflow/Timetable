@@ -12,6 +12,9 @@ const TimetableInterface = ({ className }) => {
   const startTime = 8;
   const endTime   = 21;
 
+  // keeps track of hour intervals (called timeslots)
+  // is in the form of {day : {time : unit}}
+  // unit is `undefined` if not set to anything
   const [allocations, setAllocations] = useState({
     'Monday'    : {},
     'Tuesday'   : {},
@@ -32,12 +35,14 @@ const TimetableInterface = ({ className }) => {
   const allColours = [
     '#ee2200',
     '#22eeee',
-    // '#66dd00',
-    // '#ff77ff',
-    // '#dddd22'
+    '#66dd00',
+    '#ff77ff',
+    '#dddd22'
   ]
+
   const [unitColours, setUnitColours] = useState([]);
 
+  // lists all colours not being used
   const getAvailableColours = () => {
     return (
       allColours.filter(
@@ -46,12 +51,13 @@ const TimetableInterface = ({ className }) => {
     );
   }
 
-  const maxColoursReached = () => {
+  // returns whether all colours are exhausted
+  const allColoursExhausted = () => {
     return getAvailableColours().length === 0;
   }
 
   const addUnit = unit => {
-    if(!maxColoursReached()) {
+    if(!allColoursExhausted()) {
       const newColour = getAvailableColours()[0];
       setUnits([...units, unit]);
       setUnitColours([...unitColours, newColour]);
@@ -117,7 +123,7 @@ const TimetableInterface = ({ className }) => {
             deleteUnitIndex={ deleteUnitIndex }
 
             unitColours={ unitColours }
-            maxColoursReached={ maxColoursReached() }
+            allColoursExhausted={ allColoursExhausted }
           />
         </Col>
       </Row>
