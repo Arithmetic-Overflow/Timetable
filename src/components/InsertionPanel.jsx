@@ -56,10 +56,11 @@ const InsertionPanel = ({
         && start >= startTime
         && end > startTime
         ) {
+        console.log('unit', setSelectedUnit);
         Array(end - start)
           .fill(0)
           .map((_, i) => i + start)
-          .map(time => allocateTime(selectedDay, time, setSelectedUnit));
+          .map(time => allocateTime(selectedDay, time, selectedUnit));
       }
     }
 
