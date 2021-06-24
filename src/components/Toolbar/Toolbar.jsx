@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import ColourSelect from './ColourSelect';
+import SplitSelect from './SplitSelect';
 
 const Toolbar = ({ className, currentSelection, unitList, colourList }) => {
 	const [selection, setSelection] = useState(currentSelection);
@@ -8,7 +9,10 @@ const Toolbar = ({ className, currentSelection, unitList, colourList }) => {
 	const [unitColours, setUnitColours] = useState(colourList);
 
 	useEffect(
-		() => {setUnits(unitList); setUnitColours(colourList)},
+		() => {
+			setUnits(unitList);
+			setUnitColours(colourList);
+		},
 		[unitList, colourList]
 	);
 
@@ -19,10 +23,13 @@ const Toolbar = ({ className, currentSelection, unitList, colourList }) => {
 	// };
 
     return (
-        <ColourSelect
-        	unitList={ units }
-        	colourList={ unitColours }
-        />
+    	<>
+	        <ColourSelect
+	        	unitList={ units }
+	        	colourList={ unitColours }
+	        />
+	        <SplitSelect />
+        </>
     );
 };
 
