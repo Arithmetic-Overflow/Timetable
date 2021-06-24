@@ -32,7 +32,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList }) => {
   return (
 			<DropdownButton
 				title='Select Colour'
-				variant='primary'
+				variant='outline-success'
 			>
         {
         	selections.map(
@@ -45,7 +45,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList }) => {
                   eventKey={ selection[0] } 
                   key={ selection[0] }
                   style={{'backgroundColor': colour}}
-                  className='colourSelect'
+                  className='colourSelectItem'
           			>
             			{unitName}
             		</Dropdown.Item>

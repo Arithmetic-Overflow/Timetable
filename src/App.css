@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 18pt;
   color: white;
 }
 
@@ -37,16 +37,37 @@
   }
 }
 
+/**:not([type=button]):not(.override):not(.dropdown-button):not(.dropdown-menu):not(.btn):not(button)*/
+
+*:not(.override) {
+  color:  #0d6efd;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 0.8pt;
+  -webkit-text-stroke-color: #61dafb;
+}
+
 .dropdown-menu.show {
   background-color: #282c34;
   color: white;
   font-size: 18pt;
 }
 
-.dropdown-menu.show .colourSelect {
+input {
+  background-color: #282c34;
+}
+
+.dropdown-menu.show .colourSelectItem {
   color:  black;
 }
 
 .dropdown-menu.show * {
+  color: white;
+}
+
+.btn-outline-success {
+  color: white;
+}
+
+hr {
   color: white;
 }

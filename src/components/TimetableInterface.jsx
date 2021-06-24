@@ -107,7 +107,7 @@ const TimetableInterface = ({ className }) => {
   }
 
   return (
-    <Container fluid>
+    <Container fluid style={{'margin': '4vh 4vw 4vh 4vw'}}>
       <Row>
         <Col xl={7} lg={12}>
           <Timetable
