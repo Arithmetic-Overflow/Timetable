@@ -25,7 +25,7 @@ const SplitSelect = ({ className, isSelected }) => {
     return (
         <DropdownButton
           title='Split'
-          variant='outline-success'
+          variant='outline-neon'
         >
           {
             possibleSplits.map(

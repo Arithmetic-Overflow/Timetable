@@ -32,7 +32,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList }) => {
   return (
 			<DropdownButton
 				title='Select Colour'
-				variant='outline-success'
+				variant='outline-neon'
 			>
         {
         	selections.map(

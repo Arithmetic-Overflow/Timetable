@@ -115,7 +115,7 @@ const InsertionPanel = ({
           Unit:
             <DropdownButton
               title={ selectedUnit }
-              variant='outline-success'
+              variant='outline-neon'
               onSelect={ (event) => setSelectedUnit(event) }
             >
               {
@@ -136,7 +136,7 @@ const InsertionPanel = ({
             Day:
             <DropdownButton
               title={ selectedDay }
-              variant='outline-success'
+              variant='outline-neon'
               onSelect={ (event) => setSelectedDay(event) }
             >
               {
@@ -187,7 +187,7 @@ const InsertionPanel = ({
             <Button
               onClick={ submitAllocation }
               style={{'width': '100%'}}
-              variant='outline-success'
+              variant='outline-neon'
             >
               Allocate
             </Button>
