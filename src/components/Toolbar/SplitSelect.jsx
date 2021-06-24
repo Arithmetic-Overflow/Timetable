@@ -33,7 +33,6 @@ const SplitSelect = ({ className, isSelected }) => {
                 <Dropdown.Item
                   eventKey={ split } 
                   key={ split }
-                  // style={{'color': 'white'}}
                 >
                   {fractions[splitIndex]}
                 </Dropdown.Item>
