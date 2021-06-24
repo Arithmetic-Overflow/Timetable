@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
 import Timetable from './Timetable';
 import Legend from './Legend';
 import InsertionPanel from './InsertionPanel';
+import Toolbar from './Toolbar/Toolbar';
 
 // import Table from 'react-bootstrap/Table';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -130,6 +132,10 @@ const TimetableInterface = ({ className }) => {
 
             unitColours={ unitColours }
             allColoursExhausted={ allColoursExhausted }
+          />
+          <Toolbar
+            unitList={ units }
+            colourList={ unitColours }
           />
         </Col>
       </Row>
