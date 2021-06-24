@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.dropdown-menu.show {
+  background-color: #282c34;
+  color: white;
+  font-size: 18pt;
+}
+
+.dropdown-menu.show .colourSelect {
+  color:  black;
+}
+
+.dropdown-menu.show * {
+  color: white;
+}
