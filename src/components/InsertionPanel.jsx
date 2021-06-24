@@ -122,7 +122,6 @@ const InsertionPanel = ({
                 units.map(
                   subject =>
                     <Dropdown.Item
-                      style={ darkInputStyle }
                       eventKey={ subject } 
                       key={ subject }
                     >
@@ -144,7 +143,6 @@ const InsertionPanel = ({
                 daysMap.map(
                   day =>
                     <Dropdown.Item
-                      style={ darkInputStyle }
                       eventKey={ day } 
                       key={ day }
                     >
