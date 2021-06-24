@@ -95,7 +95,7 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, al
               <td></td>
               <td>
                 <Button
-                  variant='primary'
+                  variant='outline-neon'
                   onClick={handleUnitAddition}
                   style={{'width': '100%'}}
                 >
