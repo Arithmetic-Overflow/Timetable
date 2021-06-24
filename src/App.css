@@ -69,6 +69,8 @@ input {
   color: white;
 }
 
+/* https://bbbootstrap.com/snippets/neon-button-custom-font-19699091 */
+
 .wrapper {
     display: flex;
     justify-content: center;
@@ -88,18 +90,19 @@ input {
   background-color: transparent;
   border-radius: 0.25em;
   text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
-  box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+  box-shadow: inset 0 0 0.5em 0 var(--clr-neon);
   transition: all 0.5s;
 
   color:  #0d6efd;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 1pt;
+  -webkit-text-fill-color: var(--clr-neon);
+  -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: var(--clr-neon);
+
+  color: white !important;
 }
 
 .btn-outline-neon:hover {
   background-color: var(--clr-neon);
-  color: #fff;
 
   color:  #0d6efd;
   -webkit-text-fill-color: black;
