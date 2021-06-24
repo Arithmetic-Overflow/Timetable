@@ -1,70 +1,20 @@
-# Getting Started with Create React App
+# timetable
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What is `timetable`?
+`timetable` is a desktop application built on Electron and React that helps you create a clean and aesthetic timetable with ease.
 
-## Available Scripts
+Currently the involvement of Electron is fairly limited, but I am including it in the stack as once the front-end is complete I would like to add features where a NodeJS server would be very helpful (such as file management or file format conversions).
 
-In the project directory, you can run:
 
-### `yarn start`
+## Mission Statement
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I often find myself making timetables in LibreOffice Calc or Microsoft Excel as they have a convenient way to make tables/grids. I often end up making timetables with HTML/CSS when I want it to look polished and have functionality such as split cells (which I always have to google for the spreadsheets tools I normally use).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+My main goals for this project are:
+- A timetable that can easy split and merge columns
+- Working with times instead of cells, having the app manage timeslots automatically for me
+- Become comfortable with React and Electron, building desktop applications.
 
-### `yarn test`
+This lead me to want to make my own timetable application where I can build timetables that look nice and have split cell functionalities.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The goal of this project is to stremline my experience creating timetables quickly and without the need for excessive keystrokes/mouse movements.
