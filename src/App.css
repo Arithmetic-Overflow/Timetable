@@ -113,3 +113,15 @@ input {
 hr {
   color: white;
 }
+
+.btn-outline-danger {
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}
+
+.btn-outline-danger:hover {
+  -webkit-text-fill-color: #282c34;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #282c34;
+}
