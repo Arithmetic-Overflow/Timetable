@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Timeslot = ({ className, allocationIndex, allocateTimeslot, unitColours, unitList, content }) => {
+const Timeslot = ({ className, allocationIndex, allocateTimeslot=(_)=>null, unitColours, unitList, content, colSpan='1' }) => {
     const [coloursList, setColoursList] = useState(unitColours);
     const [unitIndex, setUnitIndex] = useState(allocationIndex);
     const [colour, setColour] = useState(coloursList[allocationIndex]);
@@ -36,7 +36,15 @@ const Timeslot = ({ className, allocationIndex, allocateTimeslot, unitColours, u
     }
 
     return (
-        <td className={className + ' timeslot'} style={style} onClick={ onClick } onDoubleClick={ onDoubleClick } />
+        <td
+            className={ className + ' timeslot' }
+            style={ style }
+            onClick={ onClick }
+            onDoubleClick={ onDoubleClick }
+            colSpan={ colSpan }
+        >
+            { content ? content : '' }
+        </td>
     );
 };
 

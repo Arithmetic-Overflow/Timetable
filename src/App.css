@@ -137,3 +137,9 @@ hr {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #282c34;
 }
+
+.timeslot {
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}

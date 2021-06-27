@@ -4,6 +4,8 @@ import 'react-dom';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
+import Timeslot from './Timeslot';
+
 const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, allColoursExhausted }) => {
   const [units, setUnits]     = useState(unitList);
   const [colours, setColours] = useState(unitColours);
@@ -52,8 +54,7 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, al
         {
           units.length > 0 &&
             <tr key={ 'legendHeading' }>
-              <th key={ 'colourHeading' }>Colour</th>
-              <th key={ 'unitcodeHeading' }>Key</th>
+              <th key={ 'colourHeading' } colSpan='2'>Colour Key</th>
               <th key={ 'unitDeleteHeading' }>Delete</th>    
             </tr>
         }
@@ -61,21 +62,30 @@ const Legend = ({ className, unitList, unitColours, addUnit, deleteUnitIndex, al
 
       <tbody>
         {
-          units.map((_, i) =>
-            <tr key={ 'legend' + units[i] }>
-              <td key={ 'keyColour' + units[i] }style={{'backgroundColor': colours[i]}}></td>
-              <td key={ 'keyUnit'   + units[i] }>{ units[i] }</td>
-              <td key={ 'delete' + units[i] }> 
-                <Button 
-                onClick={ () => deleteUnitIndex(i) }
-                style={{'width': '100%'}}
-                variant='outline-danger'
-                >
-                  !!!
-                </Button>
-              </td>
-            </tr>
-          )
+          units.map((_, i) => {
+            return (
+              <tr key={ 'legend' + units[i] }>
+                <Timeslot
+                  key={ 'keyUnit' + i + units[i]}
+                  allocationIndex={i}
+                  unitList={units}
+                  unitColours={colours}
+                  content={units[i]}
+                  colSpan='2'
+                />
+
+                <td key={ 'delete' + units[i] }> 
+                  <Button 
+                  onClick={ () => deleteUnitIndex(i) }
+                  style={{'width': '100%'}}
+                  variant='outline-danger'
+                  >
+                    !!!
+                  </Button>
+                </td>
+              </tr>
+            );
+          })
         }
 
         {
