@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-const Timeslot = ({ className, allocationIndex, allocateTimeslot, unitColours, unitList }) => {
+const Timeslot = ({ className, allocationIndex, allocateTimeslot, unitColours, unitList, content }) => {
     const [coloursList, setColoursList] = useState(unitColours);
-
     const [unitIndex, setUnitIndex] = useState(allocationIndex);
-
     const [colour, setColour] = useState(coloursList[allocationIndex]);
 
     useEffect(
@@ -22,18 +20,23 @@ const Timeslot = ({ className, allocationIndex, allocateTimeslot, unitColours, u
         allocateTimeslot(newVal);
     }
 
-    // clear colour on double click
+    // clear colou*r on double click
     const onDoubleClick = () => {
         allocateTimeslot(-1);
     }
 
+    const hexOpacityStr = '44';
+
     const style = {
-        'backgroundColor' : colour,
-        'borderRadius' : '16px'
+        'backgroundColor' : colour + hexOpacityStr,
+        'borderRadius' : '14px',
+        'borderColor' : colour ? colour : 'transparent',
+        'borderStyle' : 'double',
+        'borderWidth': '5px'
     }
 
     return (
-        <td style={style} onClick={ onClick } onDoubleClick={ onDoubleClick } />
+        <td className={className + ' timeslot'} style={style} onClick={ onClick } onDoubleClick={ onDoubleClick } />
     );
 };
 
