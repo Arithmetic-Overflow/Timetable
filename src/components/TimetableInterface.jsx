@@ -63,9 +63,11 @@ const TimetableInterface = ({ className }) => {
   // appends a colour to the colour array to pair with it
   const addUnit = unit => {
     if(!allColoursExhausted()) {
-      const newColour = getAvailableColours()[0];
-      setUnits([...units, unit]);
-      setUnitColours([...unitColours, newColour]);
+      if(units.indexOf(unit) === -1) {
+        const newColour = getAvailableColours()[0];
+        setUnits([...units, unit]);
+        setUnitColours([...unitColours, newColour]);
+      }
     }
   }
 
