@@ -32,13 +32,17 @@ const TimetableInterface = ({ className }) => {
     setAllocations(newAllocations);
   }
 
-  const allColours = [
+  const startingColours = [
     '#ee2200',
+    '#c92fde',
     '#22eeee',
     '#66dd00',
-    '#ff77ff',
     '#dddd22'
   ]
+
+  const [allColours, setAllColours] = useState(startingColours);
+
+  const addColour = colour => setAllColours([...allColours, colour]);
 
   // an array of units and colours
   // the unit in units[i] has the colour in unitColours[i]
