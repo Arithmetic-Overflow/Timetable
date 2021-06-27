@@ -28,7 +28,7 @@ const Timeslot = ({ className, allocationIndex, allocateTimeslot=(_)=>null, unit
     const hexOpacityStr = '44';
 
     const style = {
-        'backgroundColor' : colour + hexOpacityStr,
+        'backgroundColor' : colour ? (colour + hexOpacityStr) : '#212529',
         'borderRadius' : '14px',
         'borderColor' : colour ? colour : 'transparent',
         'borderStyle' : 'double',
