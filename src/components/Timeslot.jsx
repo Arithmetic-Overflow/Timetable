@@ -27,8 +27,13 @@ const Timeslot = ({ className, allocationIndex, allocateTimeslot, unitColours, u
         allocateTimeslot(-1);
     }
 
+    const style = {
+        'backgroundColor' : colour,
+        'borderRadius' : '16px'
+    }
+
     return (
-        <td style={{'backgroundColor': colour}} onClick={ onClick } onDoubleClick={ onDoubleClick } />
+        <td style={style} onClick={ onClick } onDoubleClick={ onDoubleClick } />
     );
 };
 
