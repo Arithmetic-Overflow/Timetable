@@ -20,12 +20,14 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
 
   // get possible colour options
   const getSelections = () => {
-    return (
+    const noSelection = ['Delete', '#888888'];
+    const allColours =
       unitList.map(
         (unit, colourIndex) =>
           [unit, colourList[colourIndex]]
-      )
-    );
+      );
+
+    return [noSelection, ...allColours];
   }
 
   // the possible options the user can select from
@@ -50,7 +52,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
         			const unitName 		= selection[0];
         			const colour 			= selection[1];
 
-              const hexOpacityStr = '44';
+              const hexOpacityStr = '88';
 
               const style = {
                 'backgroundColor' : colour + hexOpacityStr,

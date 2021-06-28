@@ -149,3 +149,7 @@ hr {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
 }
+
+.colourSelectItem:not(:hover) {
+  background-color: transparent !important;
+}
