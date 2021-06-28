@@ -49,7 +49,8 @@ const TimetableInterface = ({ className }) => {
   const [units, setUnits]             = useState([]);
   const [unitColours, setUnitColours] = useState([]);
 
-  const [selectedColour, setSelectedColour] = useState('transparent');
+  // #888888 is the 'empty' selection colour: it represents the 'deallocation' unit
+  const [selectedColour, setSelectedColour] = useState('#888888');
 
   const setColour = colour => setSelectedColour(colour);
 
@@ -82,7 +83,13 @@ const TimetableInterface = ({ className }) => {
 
   // delete a unit and remove its colour from the unitColours array
   const deleteUnitIndex = index => {
-    const unitName = units[index];
+    const unitName    = units[index];
+    const unitColour  = unitColours[index];
+
+    // deselect the deleted colour if it is selected
+    if(selectedColour === unitColour) {
+      setSelectedColour('#888888');
+    }
 
     // remove it from the units and colours array
     setUnits(units.filter((_, i) => i !== index));
@@ -151,7 +158,6 @@ const TimetableInterface = ({ className }) => {
             activeColour={ selectedColour }
             setColour={ setColour }
           />
-          <div style={{"width" : "200px", "backgroundColor" : selectedColour}}> col </div>
         </Col>
       </Row>
     </Container>

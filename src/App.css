@@ -166,3 +166,12 @@ hr {
 .colourSelectItem:not(:hover) {
   background-color: transparent !important;
 }
+
+.colourDisplay {
+  padding: 12px 12px;
+  border-radius: 10px;
+  border-style: double;
+  border-color: black;
+  border-width: 8px;
+  opacity: 80%;
+}

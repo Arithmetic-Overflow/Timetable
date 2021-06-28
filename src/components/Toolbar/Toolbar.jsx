@@ -30,7 +30,7 @@ const Toolbar = ({ className, currentSelection, unitList, colourList, setColour,
 	        	activeColour={ activeColour }
 	        	setColour={ setColour }
 	        />
-	        <SplitSelect />
+	        {/*<SplitSelect />*/}
         </>
     );
 };

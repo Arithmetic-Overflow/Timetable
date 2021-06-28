@@ -40,12 +40,19 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
     [unitList, colourList]
   );
 
-  return (
-			<DropdownButton
-				title='Select Colour'
-				variant='outline-neon'
-        onSelect={ (event) => setColour(event) }
-			>
+  return (  			
+    <span style={{'display':'flex'}}>
+      <span
+        className='colourDisplay'
+        style={{'backgroundColor' : activeColour}}
+      />
+      
+      <DropdownButton
+  			title='Select Colour'
+  			variant='outline-neon'
+        onSelect={ event => setColour(event) }
+        style={{'display' : 'inline'}}
+  		>
         {
         	selections.map(
         		(selection) => {
@@ -76,7 +83,8 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
         		}
         	)
         }
-			</DropdownButton>
+  		</DropdownButton>
+    </span>
   );
 };
 
