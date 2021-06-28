@@ -56,7 +56,7 @@
   -webkit-text-stroke-color: #61dafb;
 }
 
-.table {
+.table, .dropdown-menu, .dropdown, .dropdown-item {
   border-collapse: separate;
 }
 
@@ -72,6 +72,10 @@ input {
 
 .dropdown-menu.show .colourSelectItem {
   color:  black;
+}
+.colourSelectItem:onhover {
+  /*filter: brightness(150%);*/
+  /*background-color: white !important;*/
 }
 
 .dropdown-menu.show * {
@@ -139,6 +143,12 @@ hr {
 }
 
 .timeslot {
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}
+
+.colourSelectItem {
   -webkit-text-fill-color: white;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;

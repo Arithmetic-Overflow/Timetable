@@ -49,6 +49,10 @@ const TimetableInterface = ({ className }) => {
   const [units, setUnits]             = useState([]);
   const [unitColours, setUnitColours] = useState([]);
 
+  const [selectedColour, setSelectedColour] = useState('transparent');
+
+  const setColour = colour => setSelectedColour(colour);
+
   // lists all colours not being used
   const getAvailableColours = () => {
     return (
@@ -119,6 +123,7 @@ const TimetableInterface = ({ className }) => {
           <Timetable
             unitList={ units }
             colourList={ unitColours }
+            activeColour={ selectedColour }
             allocs={ allocations }
             allocateTime={ allocateTime }
             timeStandard='12'
@@ -142,6 +147,7 @@ const TimetableInterface = ({ className }) => {
           <Toolbar
             unitList={ units }
             colourList={ unitColours }
+            activeColour={ selectedColour }
           />
         </Col>
       </Row>
