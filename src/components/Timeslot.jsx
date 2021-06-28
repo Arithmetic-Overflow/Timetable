@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-const Timeslot = ({ className, allocationIndex, allocateTimeslot=(_)=>null, unitColours, unitList, content, colSpan='1' }) => {
+const Timeslot = ({
+    className,
+    allocationIndex,
+    allocateTimeslot=(_)=>null,
+    unitColours,
+    unitList,
+    content,
+    activeColour,
+    colSpan='1'
+}) => {
     const [coloursList, setColoursList] = useState(unitColours);
     const [unitIndex, setUnitIndex] = useState(allocationIndex);
     const [colour, setColour] = useState(coloursList[allocationIndex]);
@@ -14,10 +23,18 @@ const Timeslot = ({ className, allocationIndex, allocateTimeslot=(_)=>null, unit
         [allocationIndex, unitColours]
     );
 
+    const [selectedColour, setSelectedColour] = useState(activeColour);
+
+    useEffect(
+        () => {setSelectedColour(activeColour)},
+        [activeColour]
+    );
+
     // cycle through colours on click
     const onClick = () => {
-        const newVal = (unitIndex + 1) % coloursList.length;
-        allocateTimeslot(newVal);
+        allocateTimeslot(unitColours.indexOf(activeColour));
+        // const newVal = (unitIndex + 1) % coloursList.length;
+        // allocateTimeslot(newVal);
     }
 
     // clear colou*r on double click

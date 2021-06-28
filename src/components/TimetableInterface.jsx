@@ -75,6 +75,7 @@ const TimetableInterface = ({ className }) => {
         const newColour = getAvailableColours()[0];
         setUnits([...units, unit]);
         setUnitColours([...unitColours, newColour]);
+        setColour(newColour);
       }
     }
   }
@@ -148,7 +149,9 @@ const TimetableInterface = ({ className }) => {
             unitList={ units }
             colourList={ unitColours }
             activeColour={ selectedColour }
+            setColour={ setColour }
           />
+          <div style={{"width" : "200px", "backgroundColor" : selectedColour}}> col </div>
         </Col>
       </Row>
     </Container>

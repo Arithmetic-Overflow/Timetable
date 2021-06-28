@@ -70,12 +70,8 @@ input {
   background-color: #282c34;
 }
 
-.dropdown-menu.show .colourSelectItem {
+.dropdown-menu.show {
   color:  black;
-}
-.colourSelectItem:onhover {
-  /*filter: brightness(150%);*/
-  /*background-color: white !important;*/
 }
 
 .dropdown-menu.show * {

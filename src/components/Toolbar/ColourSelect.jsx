@@ -42,6 +42,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
 			<DropdownButton
 				title='Select Colour'
 				variant='outline-neon'
+        onSelect={ (event) => setColour(event) }
 			>
         {
         	selections.map(
@@ -53,7 +54,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
 
               const style = {
                 'backgroundColor' : colour + hexOpacityStr,
-                'borderColour' : colour,
+                'borderColor' : colour,
                 'borderStyle' : 'double',
                 'borderWidth' : '4px',
                 'borderRadius' : '12px',
@@ -62,7 +63,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
 
         			return (
         				<Dropdown.Item
-                  eventKey={ selection[0] } 
+                  eventKey={ colour } 
                   key={ selection[0] }
                   style={ style }
                   className='colourSelectItem'

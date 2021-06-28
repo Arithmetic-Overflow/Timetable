@@ -32,7 +32,8 @@ const getTimeslot = (
   allocations,
   allocateTime,
   units,
-  unitColours
+  unitColours,
+  selectedColour
 ) => {
   const dayName = dayMap[day];
   const allocation = allocations[dayName][time];
@@ -48,6 +49,7 @@ const getTimeslot = (
         allocationIndex={ unitIndex }
         unitColours={ unitColours }
         allocateTimeslot={ allocateTimeslot }
+        activeColour={ selectedColour }
     />
   );
 }
@@ -60,7 +62,8 @@ const generateTimeRow = (
   allocations,
   allocateTime,
   units,
-  unitColours
+  unitColours,
+  selectedColour
 ) => {
   return (
     <tr key={ 'timerow' + time }>
@@ -73,7 +76,15 @@ const generateTimeRow = (
           .fill(0)
           .map(
             (_, day) => 
-            getTimeslot(day, time, allocations, allocateTime, units, unitColours)
+            getTimeslot(
+              day,
+              time,
+              allocations,
+              allocateTime,
+              units,
+              unitColours,
+              selectedColour
+            )
           )
       }
     </tr>
@@ -88,6 +99,7 @@ const generateTimeRanges = (
   allocateTime,
   units,
   unitColours,
+  selectedColour,
   timeFormat
 ) => {
   const numDays = dayMap.length;
@@ -96,7 +108,18 @@ const generateTimeRanges = (
   const times = Array(timeRange).fill(0).map((_, time) => time + startTime);
 
   return (
-    times.map(time => generateTimeRow(time, timeFormat, numDays, allocations, allocateTime, units, unitColours))
+    times.map(time =>
+      generateTimeRow(
+        time,
+        timeFormat,
+        numDays,
+        allocations,
+        allocateTime,
+        units,
+        unitColours,
+        selectedColour
+      )
+    )
   );
 }
 
@@ -106,6 +129,7 @@ const Timetable = ({
   allocateTime,
   unitList,
   colourList,
+  activeColour,
   startTime=8,
   timeStandard='12',
   endTime=21
@@ -126,6 +150,13 @@ const Timetable = ({
       setUnitColours(colourList)
     },
     [unitList, colourList]
+  );
+
+  const [selectedColour, setSelectedColour] = useState(activeColour);
+
+  useEffect(
+    () => {setSelectedColour(activeColour)},
+    [activeColour]
   );
 
   const timeFormat = timeStandard === '12' ? format12Hour : format24Hour;
@@ -155,6 +186,7 @@ const Timetable = ({
             allocateTime,
             units,
             unitColours,
+            selectedColour,
             timeFormat
           ) 
         }
