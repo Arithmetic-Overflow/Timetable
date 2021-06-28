@@ -20,7 +20,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
 
   // get possible colour options
   const getSelections = () => {
-    const noSelection = ['Delete', '#888888'];
+    const noSelection = ['Deallocate', '#888888'];
     const allColours =
       unitList.map(
         (unit, colourIndex) =>

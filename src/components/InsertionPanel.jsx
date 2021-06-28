@@ -75,12 +75,12 @@ const InsertionPanel = ({
 
     // blank fields not allowed
     if(validInputs(start, end)) {
-      console.log('here')
       Array(end - start)
         .fill(0)
         .map((_, i) => i + start)
         .map(time => allocateTime(selectedDay, time, selectedUnit));
     }
+
 
     setSelectedUnit(noSelection);
     setSelectedDay(noSelection);
@@ -119,7 +119,7 @@ const InsertionPanel = ({
               onSelect={ (event) => setSelectedUnit(event) }
             >
               {
-                units.map(
+                ['Deallocate', ...units].map(
                   subject =>
                     <Dropdown.Item
                       eventKey={ subject } 
