@@ -62,16 +62,29 @@
 
 .dropdown-menu.show {
   background-color: #282c34;
-  color: white;
-  font-size: 18pt;
+  font-size: 16pt;
+}
+
+.dropdown-item:hover:not(.colourSelectItem) {
+  background-color:  var(--clr-neon);
+  margin: 6px auto;
+
+  -webkit-text-fill-color: var(--clr-bg);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--clr-bg);
+}
+
+.dropdown-item:not(hover):not(.colourSelectItem) {
+  background-color:  var(--clr-bg);
+  margin: 6px auto;
+
+  -webkit-text-fill-color: var(--clr-neon);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--clr-neon);
 }
 
 input {
   background-color: #282c34;
-}
-
-.dropdown-menu.show {
-  color:  black;
 }
 
 .dropdown-menu.show * {

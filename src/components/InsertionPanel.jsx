@@ -94,6 +94,14 @@ const InsertionPanel = ({
     'fontSize': '16pt'
   };
 
+  const dropdownStyle = {
+    'borderColor' : 'white',
+    'borderStyle' : 'double',
+    'borderWidth' : '4px',
+    'borderRadius' : '12px',
+    'margin' : '4px auto'
+  }
+
   return (
     <Table
       className={ className }
@@ -124,6 +132,7 @@ const InsertionPanel = ({
                     <Dropdown.Item
                       eventKey={ subject } 
                       key={ subject }
+                      style={ dropdownStyle }
                     >
                       { subject }
                     </Dropdown.Item>
@@ -145,6 +154,7 @@ const InsertionPanel = ({
                     <Dropdown.Item
                       eventKey={ day } 
                       key={ day }
+                      style={ dropdownStyle }
                     >
                       { day }
                     </Dropdown.Item>

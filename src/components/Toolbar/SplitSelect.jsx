@@ -22,6 +22,14 @@ const SplitSelect = ({ className, isSelected }) => {
     const getFrac = denominator =>
         <>&frac1{denominator};</>
 
+    const dropdownStyle = {
+      'borderColor' : 'white',
+      'borderStyle' : 'double',
+      'borderWidth' : '4px',
+      'borderRadius' : '12px',
+      'margin' : '4px auto'
+    }
+
     return (
         <DropdownButton
           title='Split'
@@ -33,6 +41,7 @@ const SplitSelect = ({ className, isSelected }) => {
                 <Dropdown.Item
                   eventKey={ split } 
                   key={ split }
+                  style={ dropdownStyle }
                 >
                   {fractions[splitIndex]}
                 </Dropdown.Item>
