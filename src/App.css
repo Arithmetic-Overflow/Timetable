@@ -65,7 +65,7 @@
   font-size: 16pt;
 }
 
-.dropdown-item:hover:not(.colourSelectItem) {
+.dropdown-item:focus:not(.colourSelectItem), .dropdown-item:hover:not(.colourSelectItem) {
   background-color:  var(--clr-neon);
   margin: 6px auto;
 
@@ -74,7 +74,7 @@
   -webkit-text-stroke-color: var(--clr-bg);
 }
 
-.dropdown-item:not(hover):not(.colourSelectItem) {
+.dropdown-item:not(focus):not(.colourSelectItem), .dropdown-item:not(hover):not(.colourSelectItem) {
   background-color:  var(--clr-bg);
   margin: 6px auto;
 
