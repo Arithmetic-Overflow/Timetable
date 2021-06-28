@@ -30,11 +30,16 @@ const Timeslot = ({
         [activeColour]
     );
 
-    // cycle through colours on click
+    // if the active colour is not selected, allocate it as the active colour
+    // if the active colour is already selected then clear the allocation
     const onClick = () => {
-        allocateTimeslot(unitColours.indexOf(activeColour));
-        // const newVal = (unitIndex + 1) % coloursList.length;
-        // allocateTimeslot(newVal);
+        if(colour === activeColour) {
+            allocateTimeslot(-1);
+        }
+
+        else {
+            allocateTimeslot(unitColours.indexOf(activeColour));
+        }
     }
 
     // clear colou*r on double click
