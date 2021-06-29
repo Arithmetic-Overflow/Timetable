@@ -124,6 +124,8 @@ const TimetableInterface = ({ className }) => {
     setAllocations(newAllocations);
   }
 
+  const [selectedSplit, setSelectedSplit] = useState(1);
+
   return (
     <Container fluid style={{'margin': '4vh 4vw 4vh 4vw'}}>
       <Row>
@@ -157,6 +159,8 @@ const TimetableInterface = ({ className }) => {
             colourList={ unitColours }
             activeColour={ selectedColour }
             setColour={ setColour }
+            activeSplit={ selectedSplit }
+            setSplit={ setSelectedSplit }
           />
         </Col>
       </Row>

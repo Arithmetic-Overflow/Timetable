@@ -41,7 +41,7 @@ const ColourSelect = ({ className, isSelected, unitList, colourList, setColour, 
   );
 
   return (  			
-    <span style={{'display':'flex'}}>
+    <span style={{'display':'flex', 'justifyContent': 'center'}}>
       <span
         className='colourDisplay'
         style={{'backgroundColor' : activeColour}}

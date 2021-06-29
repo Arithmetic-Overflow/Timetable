@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-const SplitSelect = ({ className, isSelected }) => {
+const SplitSelect = ({ className, isSelected, activeSplit, setSplit }) => {
     const [selected, setSelected] = useState(isSelected);
 
     useEffect(
@@ -31,9 +31,20 @@ const SplitSelect = ({ className, isSelected }) => {
     }
 
     return (
+      <span style={{
+        'display':'flex',
+        'justifyContent': 'center',
+      }}>
+        <span
+          className='splitDisplay'
+        >
+          { fractions[activeSplit - 1] }
+        </span>
+
         <DropdownButton
           title='Split'
           variant='outline-neon'
+          onSelect={ event => setSplit(event) }
         >
           {
             possibleSplits.map(
@@ -48,6 +59,7 @@ const SplitSelect = ({ className, isSelected }) => {
             )
           }
         </DropdownButton>
+      </span>
     );
 };
 

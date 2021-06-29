@@ -175,3 +175,23 @@ hr {
   border-width: 8px;
   opacity: 80%;
 }
+
+.splitDisplay {
+  /*padding: 12px 12px;*/
+  background-color: var(--clr-neon);
+
+  -webkit-text-fill-color: black;/*#282c34;*/
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;/*#282c34;*/
+
+  width: 40px;
+  height: 40px;
+
+  font-size: 14pt;
+
+  border-radius: 10px;
+  border-style: double;
+  border-color: black;
+  border-width: 8px;
+  opacity: 80%;
+}
